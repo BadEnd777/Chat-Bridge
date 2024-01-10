@@ -30,4 +30,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: docs  # The branch for GitHub Pages
-          folder: docs/out # The folder to deploy
+          folder: docs/.next # The folder to deploy
