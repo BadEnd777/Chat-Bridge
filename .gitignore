@@ -1,0 +1,14 @@
+# .gitignore
+
+# Ignore node_modules
+node_modules/
+
+# Ignore development files
+test
+*.log
+
+# Ignore environment files
+.env*
+
+# Ignore docs (In progress)
+docs

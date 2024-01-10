@@ -1,0 +1,30 @@
+name: 🚀 Publish to NPM
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      manualTrigger:
+        description: 'Trigger a manual publish'
+        default: 'false'
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Checkout 
+        uses: actions/checkout@v3
+      - name: 🛠️ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: 📂 Navigate into package directory
+        run: cd packages
+      - name: 📦 Install dependencies
+        run: npm ci
+      - name: 🚀 Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

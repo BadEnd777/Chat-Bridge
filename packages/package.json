@@ -1,0 +1,36 @@
+{
+  "name": "chat-bridge",
+  "version": "1.0.1-alpha",
+  "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onyx-Innovators/Chat-Bridge.git"
+  },
+  "keywords": [
+    "facebook",
+    "messenger",
+    "webhook",
+    "bot",
+    "sdk",
+    "api",
+    "messaging",
+    "platform",
+    "node",
+    "nodejs",
+    "typescript",
+    "ts"
+  ],
+  "author": "Onyx Innovators",
+  "license": "MIT",
+  "bugs": {
+    "url": "https:/github.com/Onyx-Innovators/Chat-Bridge/issues"
+  },
+  "homepage": "https://onyx-innovators.github.io/Chat-Bridge/",
+  "dependencies": {
+    "@fastify/static": "^6.12.0",
+    "@paperdave/logger": "^3.0.1",
+    "fastify": "^4.25.2",
+    "undici": "^6.2.1"
+  },
+  "main": "dist/index.js"
+}
