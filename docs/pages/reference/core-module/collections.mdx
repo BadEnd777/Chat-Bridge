@@ -1,0 +1,78 @@
+import { HorizonFuntions } from 'components/HorizonFuntions';
+
+# Collections: Class
+
+The `Collections` class is a generic class for managing a collections of items. It is designed to work with objects that implement the `Identifiable` interface.
+
+## Usage
+
+```javascript
+const { Collections } = require('chat-bridge');
+```
+
+## Constructor
+
+To create a new `Collections` instance, use the following syntax:
+
+```javascript
+const collections = new Collections();
+```
+
+## Methods
+
+<HorizonFuntions list={['Add', 'Get', 'GetAll', 'Remove', 'RemoveAll', 'GetKey']} />
+
+### Add
+
+- `add(item: T): void` - Adds an item to the collections.
+  - `item`: The item to be added.
+
+### Get
+
+- `get(key: string): T` - Gets an item from the collections based on the provided key.
+  - `key`: The key of the item to retrieve.
+  - **Returns:** The retrieved item.
+
+### GetAll
+
+- `getAll(): T[]` - Gets all items from the collections.
+  - **Returns:** An array containing all items in the collections.
+
+### Remove
+
+- `remove(key: string): void` - Removes an item from the collections based on the provided key.
+  - `key`: The key of the item to be removed.
+
+### RemoveAll
+
+- `removeAll(): void` - Removes all items from the collections.
+
+### GetKey
+
+- `getKey(item: T): string` - Gets the key of an item.
+  - `item`: The item for which to retrieve the key.
+  - **Returns:** The key of the provided item.
+
+## Example
+
+```javascript
+// Instantiate a new Collections
+const collections = new Collections();
+
+// Add some items
+collections.add({ id: '1' });
+collections.add({ id: '2' });
+collections.add({ id: '3' });
+
+console.log(collections.getAll());// [{ id: '1' }, { id: '2' }, { id: '3' }]
+
+console.log(collections.get('2')); // { id: '2' }
+
+console.log(collections.get('4')); // undefined
+
+collections.remove('2'); // Remove item with key '2'
+console.log(collections.getAll()); // [{ id: '1' }, { id: '3' }]
+
+collections.removeAll(); // Remove all items
+console.log(collections.getAll()); // []
+```

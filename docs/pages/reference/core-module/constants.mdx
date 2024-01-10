@@ -1,0 +1,28 @@
+# Constants: Object
+
+The `Constants` object contains constants used throughout the application.
+
+## Usage
+
+```javascript
+const { Constants } = require('chat-bridge');
+```
+
+## Properties
+
+### `BASE_URL: string`
+
+The base URL for the Facebook Graph API: https://graph.facebook.com/
+
+### `MESSAGE_URL: string`
+
+The URL for the Facebook Graph API endpoint for sending messages: https://graph.facebook.com/v18.0/me/
+
+## Example
+
+```javascript
+const { Constants } = require('chat-bridge');
+
+console.log(Constants.BASE_URL); // https://graph.facebook.com/
+console.log(Constants.MESSAGE_URL); // https://graph.facebook.com/v18.0/me/
+```

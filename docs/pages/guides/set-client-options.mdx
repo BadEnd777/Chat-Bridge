@@ -1,0 +1,31 @@
+import { Callout } from 'components/Callout'
+
+# Set Client Options
+
+In order to use Chat Bridge, you will need to configure it with your Facebook app's access token and verify token. You can also configure the port and host to use for the webhook endpoint.
+
+## Options
+
+- `accessToken` - Your Facebook app's access token.
+- `verifyToken` - Your Facebook app's verify token.
+- `endpoint` - The webhook endpoint path (default: '/webhook').
+- `port` - The port for the Fastify server (default: 8080).
+- `host` - The host for the Fastify server (default: 'localhost').
+
+<Callout type="info">
+  The `accessToken` and `verifyToken` options are required.
+</Callout>
+
+## Example
+
+```js filename="index.js" {6-8} copy
+const { Client } = require('chat-bridge')
+
+const client = new Client({
+  accessToken: 'YOUR_ACCESS_TOKEN', // required
+  verifyToken: 'YOUR_VERIFY_TOKEN', // required
+  webHookPath: '/api/webhook',
+  port: 3000,
+  host: '0.0.0.0',
+})
+```

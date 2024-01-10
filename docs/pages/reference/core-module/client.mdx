@@ -1,0 +1,222 @@
+import { Callout } from 'components/Callout';
+import { HorizonFuntions } from 'components/HorizonFuntions';
+
+# Client: Class
+
+The `Client` class is used to create a new Messenger client. The client is used to send and receive messages from the Messenger API. The client is also used to start the server and register plugins.
+
+## Usage
+
+```js
+const { Client } = require('chat-bridge');
+```
+
+## Constructor
+
+To create a new `Client` instance, use the following code:
+
+```js
+const client = new Client(options);
+```
+
+### Options
+
+The following options are available:
+
+- `accessToken`: The access token for the Messenger API.
+- `verifyToken`: The verify token for the Messenger API.
+- `appSecret`: The app secret for the Messenger API.
+- `port`: The port to run the server on. Defaults to `3000`.
+- `host`: The host to run the server on. Defaults to `
+
+<Callout type="info">
+  The `accessToken` and `verifyToken` options are required.
+</Callout>
+
+## Methods
+
+<HorizonFuntions list={["Start the server", "Static file server", "Register a plugin", "Send an API message", "Get page information", "Send a text message", "Send an attachment", "Send an image", "Send an audio file", "Send a video", "Send a file"]} />
+
+### Start the server
+
+- `callback`: Optional callback function to execute when the server starts.
+
+```js
+client.start(() => {
+  console.log('Server started!');
+});
+```
+
+### Static file server
+
+- `options`: Chat Bridge use [@fastify-static](https://github.com/fastify/fastify-static) plugin of Fastify. You can pass any options that are supported by the plugin.
+
+```js
+client.static({
+  root: '/path/to/root',
+  prefix: '/public/',
+});
+```
+
+### Register a plugin
+
+- `...args`: Chat Bridge base on [Fastify](https://www.fastify.io/), you can pass any parameters that are supported by the [register](https://www.fastify.io/docs/latest/Plugins/) method.
+
+```js
+client.register(require('fastify-cors'), {
+  origin: '*',
+});
+```
+
+### Send an API message
+
+- `recipientId`: The ID of the user to send the message to.
+- `object`: The message object to send.
+
+```js
+client.sendApiMessage('USER_ID', {
+  text: 'Hello, world!',
+  quick_replies: [
+    {
+      content_type: 'text',
+      title: 'Hello',
+      payload: 'HELLO',
+    },
+  ],
+});
+```
+
+### Get page information
+
+```js
+const page = await client.getPageInfo();
+console.log(page); // { name: "Page Name", id: "PAGE_ID" }
+```
+
+### Send a text message
+
+- `recipientId`: The ID of the user to send the message to.
+- `text`: The text to send.
+
+```js
+client.sendTextMessage('USER_ID', 'Hello, world!');
+```
+
+### Send an attachment
+
+- `recipientId`: The ID of the user to send the attachment to.
+- `type`: The type of attachment to send. Can be `image`, `audio`, `video`, or `file`.
+- `url`: The URL of the attachment to send.
+
+```js
+client.sendAttachment('USER_ID', 'image', 'https://example.com/image.jpg');
+```
+
+### Send an image
+
+- `recipientId`: The ID of the user to send the image to.
+- `url`: The URL of the image to send.
+
+```js
+client.sendImage('USER_ID', 'https://example.com/image.jpg');
+```
+
+### Send an audio file
+
+- `recipientId`: The ID of the user to send the audio file to.
+- `url`: The URL of the audio file to send.
+
+```js
+client.sendAudio('USER_ID', 'https://example.com/audio.mp3');
+```
+
+### Send a video
+
+- `recipientId`: The ID of the user to send the video to.
+- `url`: The URL of the video to send.
+
+```js
+client.sendVideo('USER_ID', 'https://example.com/video.mp4');
+```
+
+### Send a file
+
+- `recipientId`: The ID of the user to send the file to.
+- `url`: The URL of the file to send.
+
+```js
+client.sendFile('USER_ID', 'https://example.com/file.pdf');
+```
+
+## Events
+
+The `Client` class extends the [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter) class. The following events are emitted:
+
+### Message
+
+New message received.
+
+```json
+{
+  "sender": {
+    "id": "USER_ID"
+  },
+  "recipient": {
+    "id": "PAGE_ID"
+  },
+  "timestamp": 1458692752478,
+  "message": {
+    "mid": "mid.1457764197618:41d102a3e1ae206a38",
+    "text": "hello, world!"
+  }
+}
+```
+
+### Quick reply
+
+Quick reply received.
+
+```json
+{
+  "sender": {
+    "id": "USER_ID"
+  },
+  "recipient": {
+    "id": "PAGE_ID"
+  },
+  "timestamp": 1458692752478,
+  "message": {
+    "mid": "mid.1458696618141:b4ef9d19ec21086067",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+}
+```
+
+### Postback
+
+Post Back received.
+
+```json
+{
+  "sender": {
+    "id": "USER_ID"
+  },
+  "recipient": {
+    "id": "PAGE_ID"
+  },
+  "timestamp": 1458692752478,
+  "postback": {
+    "payload": "USER_DEFINED_PAYLOAD"
+  }
+}
+```
+
+### Basic Usage
+
+```js
+client.on('message', (message) => {
+  console.log(message);
+});
+```

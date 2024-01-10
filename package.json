@@ -6,18 +6,16 @@
     "@": "dist"
   },
   "scripts": {
-    "build": "pnpm run ./scripts/build.ts",
+    "build": "pnpm ./scripts/build.ts",
     "lint": "eslint --ext .ts src",
     "format": "prettier --write \"src/**/*.ts\"",
     "dev": "pnpm test/development.ts",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.ts": [
+    "*.ts": [
+      "eslint --fix",
       "prettier --write"
-    ],
-    "package.json": [
-      "sort-package-json"
     ]
   },
   "repository": {

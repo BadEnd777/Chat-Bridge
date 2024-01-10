@@ -1,0 +1,64 @@
+# Getting Started
+
+To start using Chat Bridge, follow these simple steps to create a bot that echoes back what you send it.
+
+## Setup Chat Bridge
+
+To use Chat Bridge, you need to create a [Facebook App](https://developers.facebook.com/apps) and [Page](https://www.facebook.com/pages/create). The Facebook App is the container for your bot, and the Page is the identity that your bot assumes when talking to users.
+
+### Install Chat Bridge
+
+Chat Bridge an [npm package](https://www.npmjs.com/package/chat-bridge) that simplifies the integration of Facebook Messenger webhook handling into your Node.js applications. It offers a convenient way to interact with the Messenger Platform, handling incoming messages, postbacks, quick replies, and more.
+
+```sh filename="Terminal" copy
+npm install chat-bridge
+```
+
+This will install Chat Bridge and add it to your `package.json` file.
+
+### Configure Environment Variables
+
+Chat Bridge uses environment variables to configure your bot. Create a new file named `.env` and add the following:
+
+```sh filename=".env" copy
+ACCESS_TOKEN = YOUR_ACCESS_TOKEN
+VERIFY_TOKEN = YOUR_VERIFY_TOKEN
+```
+
+- `ACCESS_TOKEN` is your Facebook Page's access token. You can find this in your App Dashboard under the "Messenger" tab.
+- `VERIFY_TOKEN` is any string of your choosing. This is used to verify that the webhook is authentic and not being called by someone else.
+
+### Create a Bot
+
+Create a new file named `idnex.js` and add the following:
+
+```js filename="index.js" copy
+const { Client } = require('chat-bridge')
+
+const client = new Client({
+  accessToken: 'YOUR_ACCESS_TOKEN',
+  verifyToken: 'YOUR_VERIFY_TOKEN',
+})
+
+client.on('message', event => {
+  const { sender, message } = event
+
+  client.sendTextMessage(sender.id, `You wrote: ${message.text}`)
+})
+
+client.start(() => {
+  console.log('Bot is running')
+})
+```
+
+This creates a new `Client` instance and listens for `message` events. When a message is received, it sends a text message back to the user.
+
+### Start the Bot
+
+Start your bot by running the following command:
+
+```sh filename="Terminal" copy
+node index.js # or whatever you named your file
+```
+
+This will start a server listening on port `8080`. You can test that the bot is running by visiting [`http://localhost:8080/`](http://localhost:8080/). If everything is working, you should see the message "Bot is running".
