@@ -11,3 +11,4 @@ test
 .env*
 
 docs/.next
+docs/out
