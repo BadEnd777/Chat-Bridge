@@ -1,18 +1,16 @@
-interface Identifiable {
-    id: string;
-}
+import { Identifiable } from '@/interfaces';
 
 /**
- * Collection class.
+ * Collections class.
  * @export
- * @class Collection
+ * @class Collections
  * @template T
  */
-export class Collection<T extends Identifiable> {
+export class Collections<T extends Identifiable> {
     private items: { [key: string]: T } = {};
 
     /**
-     * Add an item to the collection.
+     * Add an item to the Collections.
      * @param {T} item
      */
     public add(item: T) {
@@ -21,7 +19,7 @@ export class Collection<T extends Identifiable> {
     }
 
     /**
-     * Get an item from the collection.
+     * Get an item from the Collections.
      * @param {string} key
      * @returns {T}
      */
@@ -30,7 +28,7 @@ export class Collection<T extends Identifiable> {
     }
 
     /**
-     * Get all items from the collection.
+     * Get all items from the Collections.
      * @returns {T[]}
      */
     public getAll(): T[] {
@@ -38,7 +36,7 @@ export class Collection<T extends Identifiable> {
     }
 
     /**
-     * Remove an item from the collection.
+     * Remove an item from the Collections.
      * @param {string} key
      */
     public remove(key: string) {
@@ -46,7 +44,7 @@ export class Collection<T extends Identifiable> {
     }
 
     /**
-     * Remove all items from the collection.
+     * Remove all items from the Collections.
      */
     public removeAll() {
         this.items = {};

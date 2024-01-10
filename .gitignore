@@ -10,5 +10,4 @@ test
 # Ignore environment files
 .env*
 
-# Ignore docs (In progress)
-docs
+docs/.next

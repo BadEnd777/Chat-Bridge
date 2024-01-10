@@ -4,4 +4,5 @@ export interface ClientOptions {
     endpoint?: string;
     port?: number;
     host?: string;
+    loggers?: boolean;
 }

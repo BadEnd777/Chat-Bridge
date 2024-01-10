@@ -67,14 +67,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = void 0;
 var fastify_1 = __importDefault(require("fastify"));
+var static_1 = require("@fastify/static");
 var constants_1 = require("@/core/constants");
 var events_1 = require("events");
-var static_1 = require("@fastify/static");
 var undici_1 = require("undici");
 /**
  * @type {Client}
  * @example
  * const { Client } = require('@badend/chatbridge');
+ *
  * const client = new Client({
  *      accessToken: "YOUR_ACCESS_TOKEN", // required
  *      verifyToken: "YOUR_VERIFY_TOKEN", // required
@@ -208,9 +209,8 @@ var Client = /** @class */ (function (_super) {
      * Register a plugin
      * @memberof Client
      * @example
-     * client.register(import("@fastify/static"), {
-     *      root: `${__dirname}/public`,
-     *      prefix: "/",
+     * client.register(require('fastify-cors'), {
+     *      origin: '*',
      * });
      * @param {Function} ...args
      */
@@ -247,7 +247,7 @@ var Client = /** @class */ (function (_super) {
                     case 1:
                         _a = _b.sent(), statusCode = _a.statusCode, response = _a.body;
                         if (statusCode !== 200) {
-                            throw new Error("Request failed: ".concat(statusCode));
+                            throw new Error("Request failed: ".concat(statusCode, "\n").concat(response));
                         }
                         return [4 /*yield*/, response.json()];
                     case 2:
@@ -257,6 +257,23 @@ var Client = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     * Send an API message
+     * @memberof Client
+     * @example
+     * client.sendApiMessage("USER_ID", {
+     *      text: "Hello, World!",
+     *      quick_replies: [
+     *          {
+     *              content_type: "text",
+     *              title: "Hello",
+     *              payload: "HELLO",
+     *          }
+     *      ]
+     * });
+     * @param {string} recipientId
+     * @param {object} message
+     */
     Client.prototype.sendApiMessage = function (recipientId, message) {
         var body = {
             recipient: {
@@ -303,6 +320,100 @@ var Client = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.sendApiMessage(recipientId, { text: text })];
+            });
+        });
+    };
+    /**
+     * Send an attachment
+     * @memberof Client
+     * @example
+     * client.sendAttachment("USER_ID", "image", "https://example.com/image.png");
+     * @param {string} recipientId
+     * @param {string} type
+     * @param {string} url
+     * @param {boolean} [isReusable=false]
+     */
+    Client.prototype.sendAttachment = function (recipientId, type, url, isReusable) {
+        if (isReusable === void 0) { isReusable = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendApiMessage(recipientId, {
+                        attachment: {
+                            type: type,
+                            payload: {
+                                url: url,
+                                is_reusable: isReusable
+                            }
+                        }
+                    })];
+            });
+        });
+    };
+    /**
+     * Send an image
+     * @memberof Client
+     * @example
+     * client.sendImage("USER_ID", "https://example.com/image.png");
+     * @param {string} recipientId
+     * @param {string} url
+     * @param {boolean} [isReusable=false]
+     */
+    Client.prototype.sendImage = function (recipientId, url, isReusable) {
+        if (isReusable === void 0) { isReusable = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendAttachment(recipientId, 'image', url, isReusable)];
+            });
+        });
+    };
+    /**
+     * Send an audio
+     * @memberof Client
+     * @example
+     * client.sendAudio("USER_ID", "https://example.com/audio.mp3");
+     * @param {string} recipientId
+     * @param {string} url
+     * @param {boolean} [isReusable=false]
+     */
+    Client.prototype.sendAudio = function (recipientId, url, isReusable) {
+        if (isReusable === void 0) { isReusable = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendAttachment(recipientId, 'audio', url, isReusable)];
+            });
+        });
+    };
+    /**
+     * Send a video
+     * @memberof Client
+     * @example
+     * client.sendVideo("USER_ID", "https://example.com/video.mp4");
+     * @param {string} recipientId
+     * @param {string} url
+     * @param {boolean} [isReusable=false]
+     */
+    Client.prototype.sendVideo = function (recipientId, url, isReusable) {
+        if (isReusable === void 0) { isReusable = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendAttachment(recipientId, 'video', url, isReusable)];
+            });
+        });
+    };
+    /**
+     * Send a file
+     * @memberof Client
+     * @example
+     * client.sendFile("USER_ID", "https://example.com/file.pdf");
+     * @param {string} recipientId
+     * @param {string} url
+     * @param {boolean} [isReusable=false]
+     */
+    Client.prototype.sendFile = function (recipientId, url, isReusable) {
+        if (isReusable === void 0) { isReusable = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendAttachment(recipientId, 'file', url, isReusable)];
             });
         });
     };
