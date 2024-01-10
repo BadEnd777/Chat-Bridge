@@ -4,6 +4,9 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import pkg from '../package.json'
 
+const description = "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications."
+
+
 const logo = (
   <div>
     <Image src="/favicon.ico" alt="Chat Bridge" width={25} height={25} />
@@ -45,11 +48,11 @@ const config: DocsThemeConfig = {
         <meta httpEquiv="Content-Language" content="en" />
         <meta
           name="description"
-          content={pkg.description}
+          content={description}
         />
         <meta
           name="og:description"
-          content={pkg.description}
+          content={description}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={socialCard} />
