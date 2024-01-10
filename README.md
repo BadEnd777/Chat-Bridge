@@ -75,13 +75,7 @@ client.start(async () => {
 
 ### Documentation
 
-The Chat Bridge documentation is available on the [wiki](https://github.com/Onyx-Innovators/Chat-Bridge/wiki#chat-bridge-documentation).
-
-- [Getting Started](https://github.com/Onyx-Innovators/Chat-Bridge/wiki/Getting-Started)
-- [Usage Guide](https://github.com/Onyx-Innovators/Chat-Bridge/wiki/Usage-Guide)
-- [API Reference](https://github.com/Onyx-Innovators/Chat-Bridge/wiki/API-Reference)
-  - [Core API Reference](https://github.com/Onyx-Innovators/Chat-Bridge/wiki/Core-API-Reference)
-- [Changelog](https://github.com/Onyx-Innovators/Chat-Bridge/wiki/Changelog)
+You can read additional documents at [Chat Bridge](https://chat-bridge.pages.dev/)
 
 ### Contributing
 

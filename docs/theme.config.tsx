@@ -5,7 +5,6 @@ import Image from 'next/image'
 
 const description = "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications."
 
-
 const logo = (
   <div>
     <Image src="/favicon.ico" alt="Chat Bridge" width={25} height={25} />
