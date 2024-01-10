@@ -2,7 +2,6 @@ import type { DocsThemeConfig } from 'nextra-theme-docs'
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import pkg from '../package.json'
 
 const description = "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications."
 
