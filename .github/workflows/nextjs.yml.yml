@@ -28,9 +28,9 @@ jobs:
         run: npm install
       - name: 🏗️ Build Next.js app
         working-directory: docs
-        run: npm run build
+        run: npm run build-static
       - name: 🚀 Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: docs  # The branch for GitHub Pages
-          folder: docs/.next # The folder to deploy
+          folder: docs/out # The folder to deploy
