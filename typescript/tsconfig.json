@@ -6,7 +6,7 @@
             "es6"
         ],
         "allowJs": true,
-        "outDir": "packages/dist",
+        "outDir": "../packages/dist",
         "rootDir": "src",
         "strict": true,
         "noImplicitAny": true,
@@ -20,6 +20,6 @@
         },
     },
     "include": [
-        "src/**/*"
+        "src/**/*.ts",
     ],
 }
