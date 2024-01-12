@@ -4,11 +4,10 @@
 node_modules/
 
 # Ignore development files
-test
+typescript/test
 *.log
 
-# Ignore environment files
-.env*
+.env
 
 docs/.next
 docs/out

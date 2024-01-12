@@ -68,7 +68,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = void 0;
 var fastify_1 = __importDefault(require("fastify"));
 var static_1 = require("@fastify/static");
-var constants_1 = require("@/core/constants");
+var constants_1 = require("./constants");
 var events_1 = require("events");
 var undici_1 = require("undici");
 /**
@@ -284,6 +284,26 @@ var Client = /** @class */ (function (_super) {
         return this.sendRequest({ method: 'POST', path: 'messages', body: body });
     };
     /**
+     * Send a message
+     * @memberof Client
+     * @example
+     * client.send("USER_ID", {
+     *      text: "Hello, World!",
+     *      quick_replies: [
+     *          {
+     *              content_type: "text",
+     *              title: "Hello",
+     *              payload: "HELLO",
+     *          }
+     *      ]
+     * });
+     * @param {string} recipientId
+     * @param {object} message
+     */
+    Client.prototype.send = function (recipientId, message) {
+        return this.sendApiMessage(recipientId, message);
+    };
+    /**
      * Get page information
      * @memberof Client
      * @example
@@ -329,7 +349,7 @@ var Client = /** @class */ (function (_super) {
      * @example
      * client.sendAttachment("USER_ID", "image", "https://example.com/image.png");
      * @param {string} recipientId
-     * @param {string} type
+     * @param {string} type - image, audio, video, file
      * @param {string} url
      * @param {boolean} [isReusable=false]
      */
@@ -339,7 +359,7 @@ var Client = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.sendApiMessage(recipientId, {
                         attachment: {
-                            type: type,
+                            type: type, // image, audio, video, file
                             payload: {
                                 url: url,
                                 is_reusable: isReusable
@@ -414,6 +434,28 @@ var Client = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.sendAttachment(recipientId, 'file', url, isReusable)];
+            });
+        });
+    };
+    /**
+     * Set typing indicator
+     * @memberof Client
+     * @example
+     * client.setTyping("USER_ID", true);
+     * @param {string} recipientId
+     * @param {boolean} typing
+     */
+    Client.prototype.setTyping = function (recipientId, typing) {
+        return __awaiter(this, void 0, void 0, function () {
+            var body;
+            return __generator(this, function (_a) {
+                body = {
+                    recipient: {
+                        id: recipientId
+                    },
+                    sender_action: typing ? 'typing_on' : 'typing_off'
+                };
+                return [2 /*return*/, this.sendRequest({ method: 'POST', path: 'messages', body: body })];
             });
         });
     };

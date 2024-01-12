@@ -7,7 +7,7 @@ import { join } from 'path';
 const rootPath = join(__dirname, '..', '..');
 const packagePath = join(rootPath, 'packages');
 const distPath = join(packagePath, 'dist');
-const jsonFileToCopy = join(rootPath, 'package.json');
+const jsonFileToCopy = join(rootPath, 'typescript', 'package.json');
 const jsonFileOutput = join(packagePath, 'package.json');
 
 (async () => {
@@ -61,19 +61,6 @@ const jsonFileOutput = join(packagePath, 'package.json');
         }
     });
 
-    // Compile typescript files
-    await withSpinner({
-        text: 'Compiling typescript files...',
-        successText: 'Typescript files are compiled.',
-    }, async (spinner) => {
-        try {
-            execSync('tsc --skipLibCheck');
-        } catch (error) {
-            spinner.error('Failed to compile typescript files.');
-            throw error;
-        }
-    });
-
     // Copy package.json file to packages folder
     await withSpinner({
         text: 'Copying package.json file...',
@@ -84,6 +71,9 @@ const jsonFileOutput = join(packagePath, 'package.json');
                 ...packageJson,
                 main: 'dist/index.js',
                 scripts: undefined,
+                dependencies: {
+                    ...packageJson.dependencies
+                },
                 devDependencies: undefined,
                 peerDependencies: undefined
             };
@@ -106,6 +96,19 @@ const jsonFileOutput = join(packagePath, 'package.json');
             });
         } catch (error) {
             spinner.error('Failed to copy markdown files.');
+            throw error;
+        }
+    });
+
+    // Compile typescript files
+    await withSpinner({
+        text: 'Compiling typescript files...',
+        successText: 'Typescript files are compiled.',
+    }, async (spinner) => {
+        try {
+            execSync('tsc --skipLibCheck');
+        } catch (error) {
+            spinner.error('Failed to compile typescript files.');
             throw error;
         }
     });

@@ -1,4 +1,4 @@
-import { Identifiable } from '@/interfaces';
+import { Identifiable } from '../interfaces';
 
 /**
  * Collections class.

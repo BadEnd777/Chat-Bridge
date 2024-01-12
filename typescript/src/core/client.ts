@@ -1,10 +1,10 @@
 import Fastify, { FastifyRequest, FastifyReply, type FastifyInstance } from 'fastify';
 
-import { ClientOptions, HubQuery, WebhookBody, Entry, PageInformation } from '@/interfaces';
+import { ClientOptions, HubQuery, WebhookBody, Entry, PageInformation } from '../interfaces';
 import { fastifyStatic, FastifyStaticOptions } from '@fastify/static';
-import { Constants } from '@/core/constants';
+import { Constants } from './constants';
 import { EventEmitter } from 'events';
-import { HttpMethod } from '@/types';
+import { HttpMethod } from '../types';
 import { request } from 'undici';
 
 /**
@@ -24,9 +24,9 @@ export class Client extends EventEmitter {
     public server: FastifyInstance;
     private accessToken: string;
     private verifyToken: string;
-    private endpoint: string;
-    private port: number;
-    private host: string;
+    public endpoint: string;
+    public port: number;
+    public host: string;
 
     public page: PageInformation = {
         name: '',
@@ -125,10 +125,7 @@ export class Client extends EventEmitter {
      * @param {FastifyStaticOptions} options
      */
     public async static(options: FastifyStaticOptions) {
-        return this.server.register(fastifyStatic, {
-            ...options,
-            decorateReply: false
-        });
+        return this.server.register(fastifyStatic, { ...options, decorateReply: false });
     }
 
     /**
@@ -195,6 +192,27 @@ export class Client extends EventEmitter {
     }
 
     /**
+     * Send a message
+     * @memberof Client
+     * @example
+     * client.send("USER_ID", {
+     *      text: "Hello, World!",
+     *      quick_replies: [
+     *          {
+     *              content_type: "text",
+     *              title: "Hello",
+     *              payload: "HELLO",
+     *          }
+     *      ]
+     * });
+     * @param {string} recipientId
+     * @param {object} message
+     */
+    public send(recipientId: string, message: object) {
+        return this.sendApiMessage(recipientId, message);
+    }
+
+    /**
      * Get page information
      * @memberof Client
      * @example
@@ -230,14 +248,14 @@ export class Client extends EventEmitter {
      * @example
      * client.sendAttachment("USER_ID", "image", "https://example.com/image.png");
      * @param {string} recipientId
-     * @param {string} type
+     * @param {string} type - image, audio, video, file
      * @param {string} url
      * @param {boolean} [isReusable=false]
      */
     public async sendAttachment(recipientId: string, type: string, url: string, isReusable: boolean = false) {
         return this.sendApiMessage(recipientId, {
             attachment: {
-                type,
+                type, // image, audio, video, file
                 payload: {
                     url,
                     is_reusable: isReusable
@@ -296,5 +314,24 @@ export class Client extends EventEmitter {
      */
     public async sendFile(recipientId: string, url: string, isReusable: boolean = false) {
         return this.sendAttachment(recipientId, 'file', url, isReusable);
+    }
+
+    /**
+     * Set typing indicator
+     * @memberof Client
+     * @example
+     * client.setTyping("USER_ID", true);
+     * @param {string} recipientId
+     * @param {boolean} typing
+     */
+    public async setTyping(recipientId: string, typing: boolean) {
+        const body = {
+            recipient: {
+                id: recipientId
+            },
+            sender_action: typing ? 'typing_on' : 'typing_off'
+        };
+
+        return this.sendRequest({ method: 'POST', path: 'messages', body });
     }
 }
