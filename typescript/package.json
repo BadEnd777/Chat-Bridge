@@ -1,12 +1,12 @@
 {
   "name": "chat-bridge",
-  "version": "1.0.0-alpha",
+  "version": "1.1.0-alpha",
   "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
   "_moduleAliases": {
     "@": "dist"
   },
   "scripts": {
-    "build": "bun ./scripts/build.ts",
+    "build": "bun scripts/build.js",
     "lint": "eslint --ext .ts src",
     "format": "prettier --write \"src/**/*.ts\"",
     "dev": "bun test/development.ts"

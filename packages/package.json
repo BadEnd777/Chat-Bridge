@@ -1,6 +1,6 @@
 {
   "name": "chat-bridge",
-  "version": "1.0.0-alpha",
+  "version": "1.1.0-alpha",
   "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
   "repository": {
     "type": "git",

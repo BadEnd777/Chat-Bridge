@@ -3,6 +3,7 @@ import { withSpinner, success } from '@paperdave/logger';
 import { execSync } from 'child_process';
 import { join } from 'path';
 
+// eslint-disable-next-line no-undef
 const rootPath = join(__dirname, '..', '..');
 const packagePath = join(rootPath, 'packages');
 const distPath = join(packagePath, 'dist');
