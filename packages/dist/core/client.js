@@ -14,17 +14,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -67,7 +56,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = void 0;
 var fastify_1 = __importDefault(require("fastify"));
-var static_1 = require("@fastify/static");
 var constants_1 = require("./constants");
 var events_1 = require("events");
 var undici_1 = require("undici");
@@ -150,13 +138,7 @@ var Client = /** @class */ (function (_super) {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPageInfo()];
-                    case 1:
-                        _a.sent();
-                        this.server.register(static_1.fastifyStatic, {
-                            root: "".concat(__dirname, "/static"),
-                            prefix: '/'
-                        });
+                    case 0:
                         this.server.post(this.endpoint, this.handleWebhookRequest.bind(this));
                         this.server.get(this.endpoint, this.handleVerifyRequest.bind(this));
                         startServer = function () { return __awaiter(_this, void 0, void 0, function () {
@@ -181,27 +163,10 @@ var Client = /** @class */ (function (_super) {
                             });
                         }); };
                         return [4 /*yield*/, startServer()];
-                    case 2:
+                    case 1:
                         _a.sent();
                         return [2 /*return*/];
                 }
-            });
-        });
-    };
-    /**
-     * Create a static file server
-     * @memberof Client
-     * @example
-     * client.static({
-     *      root: `${__dirname}/public`,
-     *      prefix: "/",
-     * });
-     * @param {FastifyStaticOptions} options
-     */
-    Client.prototype.static = function (options) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.server.register(static_1.fastifyStatic, __assign(__assign({}, options), { decorateReply: false }))];
             });
         });
     };

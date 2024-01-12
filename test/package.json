@@ -45,6 +45,6 @@
     ]
   },
   "dependencies": {
-    "chat-bridge": "^1.1.0-alpha"
+    "chat-bridge": "^1.2.0"
   }
 }

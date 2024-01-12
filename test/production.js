@@ -1,4 +1,5 @@
 // Import the Client class
+// const { Client } = require('chat-bridge')
 const { Client } = require('../packages')
  
 // Create a new Client instance

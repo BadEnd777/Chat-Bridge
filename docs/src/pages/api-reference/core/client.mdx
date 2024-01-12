@@ -48,7 +48,6 @@ const client = new Client(options)
 
 <Cards>
     <Card icon={<FaPlay />} title="Start the server" href="#start-the-server" alt="Start the server" arrow />
-    <Card icon={<FaFile />} title="Static file server" href="#static-file-server" alt="Static file server" arrow />
     <Card icon={<FaPlug />} title="Register a plugin" href="#register-a-plugin" alt="Register a plugin" arrow />
     <Card
         icon={<FaPaperPlane />}
@@ -85,18 +84,6 @@ const client = new Client(options)
 ```js copy
 client.start(() => {
     console.log('Server started!')
-})
-```
-
-### Static file server
-
--   `options`: Chat Bridge use [@fastify-static](https://github.com/fastify/fastify-static) plugin of Fastify. You can
-    pass any options that are supported by the plugin.
-
-```js copy
-client.static({
-    root: '/path/to/root',
-    prefix: '/public/',
 })
 ```
 
@@ -189,6 +176,15 @@ client.sendVideo('USER_ID', 'https://example.com/video.mp4')
 
 ```js copy
 client.sendFile('USER_ID', 'https://example.com/file.pdf')
+```
+
+### Send a typing indicator
+
+-   `recipientId`: The ID of the user to send the typing indicator to.
+-   `typing`: Whether the typing indicator should be on or off.
+
+```js copy
+client.sendTyping('USER_ID', true)
 ```
 
 ## Events

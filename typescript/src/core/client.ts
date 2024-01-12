@@ -1,7 +1,6 @@
 import Fastify, { FastifyRequest, FastifyReply, type FastifyInstance } from 'fastify';
 
 import { ClientOptions, HubQuery, WebhookBody, Entry, PageInformation } from '../interfaces';
-import { fastifyStatic, FastifyStaticOptions } from '@fastify/static';
 import { Constants } from './constants';
 import { EventEmitter } from 'events';
 import { HttpMethod } from '../types';
@@ -92,12 +91,6 @@ export class Client extends EventEmitter {
      * @param {Function} [callback]
      */
     public async start(callback?: () => void) {
-        await this.getPageInfo();
-
-        this.server.register(fastifyStatic, {
-            root: `${__dirname}/static`,
-            prefix: '/'
-        });
         this.server.post(this.endpoint, this.handleWebhookRequest.bind(this));
         this.server.get(this.endpoint, this.handleVerifyRequest.bind(this));
 
@@ -112,20 +105,6 @@ export class Client extends EventEmitter {
         };
 
         await startServer();
-    }
-
-    /**
-     * Create a static file server
-     * @memberof Client
-     * @example
-     * client.static({
-     *      root: `${__dirname}/public`,
-     *      prefix: "/",
-     * });
-     * @param {FastifyStaticOptions} options
-     */
-    public async static(options: FastifyStaticOptions) {
-        return this.server.register(fastifyStatic, { ...options, decorateReply: false });
     }
 
     /**

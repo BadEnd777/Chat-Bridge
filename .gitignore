@@ -4,7 +4,6 @@
 node_modules/
 
 # Ignore development files
-typescript/test
 *.log
 
 .env
