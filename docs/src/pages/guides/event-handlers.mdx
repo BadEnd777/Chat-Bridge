@@ -1,0 +1,156 @@
+import { Callout, FileTree, Steps } from 'nextra/components'
+
+# Event Handling
+
+The `Client` class extends the [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter) class from
+Node.js. This means that you can listen to events emitted by the client.
+
+Visit the [API Reference](/api-reference/core/client#events) page to see all events emitted by the client.
+
+## Individual Events Files
+
+Your project directory should look like this:
+
+<FileTree>
+    <FileTree.Folder name="facebook-chatbot" open>
+        <FileTree.File name="index.js" />
+        <FileTree.File name="package.json" />
+    </FileTree.Folder>
+</FileTree>
+
+Let's create a new folder called `events` and create a new file called `message.js` inside it. This file will be
+responsible for handling the `message` event.
+
+<FileTree>
+    <FileTree.Folder name="facebook-chatbot" open>
+        <FileTree.File name="index.js" />
+        <FileTree.File name="package.json" />
+        <FileTree.Folder name="events" open>
+            <FileTree.File name="message.js" active />
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+Now, let's add the following code to the `message.js` file:
+
+```js filename="events/message.js" copy
+module.exports = {
+    name: 'message',
+
+    run: async (client, message) => {
+        console.log(message)
+    },
+}
+```
+
+The `name` property is the name of the event. The `once` property is a boolean that indicates whether the event should
+be executed only once or not. The `run` property is the function that will be executed when the event is emitted.
+
+## Reading Events Files
+
+Now that we have created the `message.js` file, we need to read it and register the event. To do this, we will use the
+`readdir` function from the `fs` module.
+
+```js filename="index.js" {10-20} copy
+const { Client } = require('chat-bridge')
+const path = require('path')
+const fs = require('fs')
+
+const client = new Client({
+    accessToken: process.env.ACCESS_TOKEN,
+    verifyToken: process.env.VERIFY_TOKEN,
+})
+
+const eventsDir = path.join(__dirname, 'events')
+const eventFiles = fs.readdirSync(eventsDir).filter((file) => file.endsWith('.js'))
+
+for (const file of eventFiles) {
+    const event = require(path.join(eventsDir, file))
+    if (event.once) {
+        client.once(event.name, (...args) => event.run(client, ...args))
+    } else {
+        client.on(event.name, (...args) => event.run(client, ...args))
+    }
+}
+
+client.start(() => {
+    console.log('Bot is running')
+})
+```
+
+Look pretty good, right? But we can do better.
+
+<Steps>
+### Step 1: Clarify the Purpose of index.js in the events Folder:
+
+In the `events` folder, create a new file called `index.js`. This file will be responsible for reading and registering
+the event files.
+
+```js filename="events/index.js" copy
+const path = require('path')
+const fs = require('fs')
+
+module.exports = (client) => {
+    // rest of the code
+}
+```
+
+### Step 2: Simplify the Event Registration Loop:
+
+You can use `for...of` directly on the filtered array of event files, eliminating the need for the separate `eventsDir`
+variable.
+
+```js filename="index.js" {5-17} copy
+const path = require('path')
+const fs = require('fs')
+
+module.exports = (client) => {
+    const eventsDir = path.join(__dirname, 'events')
+    const eventFiles = fs.readdirSync(eventsDir).filter((file) => file.endsWith('.js'))
+
+    for (const file of eventFiles) {
+        const event = require(path.join(__dirname, file))
+        const eventHandler = (...args) => event.run(client, ...args)
+
+        if (event.once) {
+            client.once(event.name, eventHandler)
+        } else {
+            client.on(event.name, eventHandler)
+        }
+    }
+}
+```
+
+Now, we can create new files inside the `events` folder and they will be automatically read and registered.
+
+<Callout>
+    <strong>Tip:</strong> You can use the <code>once</code> property to register events that should be executed only
+    once.
+</Callout>
+
+### Step 3: Load the Events Folder:
+
+Now, we need to load the `events` folder. To do this, we will import the `events` folder in the `index.js` file and pass
+the `client` instance as an argument.
+
+```js filename="index.js" {9} copy
+const { Client } = require('chat-bridge')
+const events = require('./events')
+
+const client = new Client({
+    accessToken: process.env.ACCESS_TOKEN,
+    verifyToken: process.env.VERIFY_TOKEN,
+})
+
+events(client)
+
+client.start(() => {
+    console.log('Bot is running')
+})
+```
+
+**Congratulations!** You've successfully organized your event handling by creating an `index.js` file in the `events`
+folder. Now, new event files added to the `events` folder will be automatically read and registered when your bot
+starts.
+
+</Steps>

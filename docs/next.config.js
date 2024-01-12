@@ -1,12 +1,14 @@
-const withNextra = require('nextra')({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx',
-})
-
 const nextConfig = {
-  images: {
-    unoptimized: true
-  }
+    reactStrictMode: true,
 }
 
-module.exports = withNextra(nextConfig)
+const withNextra = require('nextra')({
+    theme: 'nextra-theme-docs',
+    themeConfig: './theme.config.jsx',
+})
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer(withNextra(nextConfig))

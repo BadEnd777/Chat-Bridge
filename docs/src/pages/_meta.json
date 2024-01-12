@@ -1,0 +1,22 @@
+{
+    "index": "Introduction",
+    "getting-started": "Getting Started",
+    "guides": "Guides",
+    "api-reference": "API Reference",
+    "changelog": {
+        "title": "Changelog",
+        "type": "menu",
+        "items": {
+            "v1.1.0-alpha": {
+                "title": "v1.1.0-alpha",
+                "href": "https://github.com/Onyx-Innovators/Chat-Bridge/releases/tag/v1.1.0-alpha",
+                "newWindow": true
+            },
+            "v1.0.0-alpha": {
+                "title": "v1.0.0-alpha",
+                "href": "https://github.com/Onyx-Innovators/Chat-Bridge/releases/tag/v1.0.0-alpha",
+                "newWindow": true
+            }
+        }
+    }
+}

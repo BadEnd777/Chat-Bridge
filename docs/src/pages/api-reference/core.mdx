@@ -1,0 +1,25 @@
+import { Cards, Card } from 'nextra/components'
+import { FaUser, FaLayerGroup, FaInfoCircle } from 'react-icons/fa'
+
+# Core API
+
+The Core API is the main API for interacting between the Chat Bridge and the Facebook Messenger API. It is the main API
+that is used by the Chat Bridge to send and receive messages from Facebook Messenger.
+
+<Cards>
+    <Card icon={<FaUser />} title="Client" href="/api-reference/core/client" alt="Client" arrow />
+    <Card
+        icon={<FaLayerGroup />}
+        title="Collections"
+        href="/api-reference/core/collections"
+        alt="Collections"
+        arrow
+    />
+    <Card
+        icon={<FaInfoCircle />}
+        title="Constants"
+        href="/api-reference/core/constants"
+        alt="Constants"
+        arrow
+    />
+</Cards>

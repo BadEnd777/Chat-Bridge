@@ -1,39 +1,34 @@
 {
-  "name": "chat-bridge",
-  "version": "0.0.1",
-  "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build-static": "next build && next export",
-    "start": "next start",
-    "format": "prettier --write ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Onyx-Innovators/Chat-Bridge.git"
-  },
-  "author": "Onyx Innovators",
-  "license": "MIT",
-  "bugs": {
-    "url": "https:/github.com/Onyx-Innovators/Chat-Bridge/issues"
-  },
-  "homepage": "https://onyx-innovators.github.io/Chat-Bridge/",
-  "dependencies": {
-    "clsx": "^2.1.0",
-    "next": "^13.0.6",
-    "nextra": "latest",
-    "nextra-theme-docs": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^5.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.11.10",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.33",
-    "prettier": "^3.1.1",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^4.9.3"
-  }
+    "name": "docs",
+    "version": "1.1.0-alpha",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --write .",
+        "analyze": "next build && next bundle-analyzer"
+    },
+    "dependencies": {
+        "@next/bundle-analyzer": "^14.0.4",
+        "next": "14.0.4",
+        "nextra": "^2.13.2",
+        "nextra-theme-docs": "^2.13.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-icons": "^5.0.1"
+    },
+    "devDependencies": {
+        "@types/node": "20.11.0",
+        "autoprefixer": "^10.4.16",
+        "eslint": "^8",
+        "eslint-config-next": "14.0.4",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-mdx": "^3.1.4",
+        "eslint-plugin-prettier": "^5.1.3",
+        "postcss": "^8.4.33",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
 }

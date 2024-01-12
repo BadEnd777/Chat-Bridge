@@ -1,0 +1,75 @@
+import { Steps } from 'nextra/components'
+
+# Getting Started with Chat Bridge
+
+Follow these simple steps to create a bot that echoes back what you send it.
+
+## Create a Facebook App and Page
+
+To use Chat Bridge, you need to create a [Facebook App](https://developers.facebook.com/apps) and
+[Page](https://www.facebook.com/pages/create). The Facebook App is the container for your bot, and the Page is the
+identity that your bot assumes when talking to users.
+
+<Steps>
+### Step 1: Install Chat Bridge
+
+To integrate Facebook Messenger webhook handling into your Node.js applications, install Chat Bridge using the following
+command in your terminal:
+
+```sh npm2yarn filename="Terminal" copy
+npm i chat-bridge
+```
+
+### Step 2: Configure Environment Variables
+
+Chat Bridge uses environment variables to configure your bot. Create a new file named `.env` and add the following:
+
+```sh filename=".env" copy
+ACCESS_TOKEN = YOUR_ACCESS_TOKEN
+VERIFY_TOKEN = YOUR_VERIFY_TOKEN
+```
+
+-   `ACCESS_TOKEN` is your Facebook Page's access token (found in your App Dashboard under the "Messenger" tab).
+-   `VERIFY_TOKEN` is any string of your choosing, used to verify the webhook's authenticity.
+
+### Step 3: Create a Bot
+
+Create a new file named `index.js` and add the following code:
+
+```js filename="index.js" copy
+// Import the Client class
+const { Client } = require('chat-bridge')
+
+// Create a new Client instance
+const client = new Client({
+    accessToken: 'YOUR_ACCESS_TOKEN',
+    verifyToken: 'YOUR_VERIFY_TOKEN',
+})
+
+// Listen for 'message' events
+client.on('message', (event) => {
+    const { sender, message } = event
+
+    // Send a text message back to the user
+    client.sendTextMessage(sender.id, `You wrote: ${message.text}`)
+})
+
+// Start the bot
+client.start(() => {
+    console.log('Bot is running')
+})
+```
+
+### Step 4: Start the Bot
+
+Run the following command to start your bot:
+
+```sh filename="Terminal" copy
+# Start the Bot
+node index.js # or whatever you named your file
+```
+
+</Steps>
+
+Visit [`http://localhost:8080/`](http://localhost:8080/) to test that the bot is running. If everything is working, you
+should see the message "Bot is running."

@@ -1,0 +1,268 @@
+import {
+    FaPlay,
+    FaFile,
+    FaPlug,
+    FaPaperPlane,
+    FaInfoCircle,
+    FaComment,
+    FaPaperclip,
+    FaImage,
+    FaMusic,
+    FaVideo,
+    FaFileAlt,
+} from 'react-icons/fa'
+import { Callout, Cards, Card } from 'nextra/components'
+
+# Client: Class
+
+The `Client` class is used to create a new Messenger client, enabling you to send and receive messages from the Facebook
+Messenger API. Additionally, the client facilitates server initialization and plugin registration.
+
+## Usage
+
+```js copy
+const { Client } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `Client` instance, use the following code:
+
+```js copy
+const client = new Client(options)
+```
+
+### Options
+
+-   `accessToken`: The access token for the Facebook Messenger API.
+-   `verifyToken`: The verify token for the Facebook Messenger API.
+-   `appSecret`: The app secret for the Facebook Messenger API.
+-   `port`: The port to run the server on. Defaults to `3000`.
+-   `host`: The host to run the server on. Defaults to `localhost`.
+
+<Callout type="warning">
+    <strong>Warning:</strong> The `accessToken` and `verifyToken` options are required.
+</Callout>
+
+## Methods
+
+<Cards>
+    <Card icon={<FaPlay />} title="Start the server" href="#start-the-server" alt="Start the server" arrow />
+    <Card icon={<FaFile />} title="Static file server" href="#static-file-server" alt="Static file server" arrow />
+    <Card icon={<FaPlug />} title="Register a plugin" href="#register-a-plugin" alt="Register a plugin" arrow />
+    <Card
+        icon={<FaPaperPlane />}
+        title="Send an API message"
+        href="#send-an-api-message"
+        alt="Send an API message"
+        arrow
+    />
+    <Card
+        icon={<FaInfoCircle />}
+        title="Get page information"
+        href="#get-page-information"
+        alt="Get page information"
+        arrow
+    />
+    <Card
+        icon={<FaComment />}
+        title="Send a text message"
+        href="#send-a-text-message"
+        alt="Send a text message"
+        arrow
+    />
+    <Card icon={<FaPaperclip />} title="Send an attachment" href="#send-an-attachment" alt="Send an attachment" arrow />
+    <Card icon={<FaImage />} title="Send an image" href="#send-an-image" alt="Send an image" arrow />
+    <Card icon={<FaMusic />} title="Send an audio file" href="#send-an-audio-file" alt="Send an audio file" arrow />
+    <Card icon={<FaVideo />} title="Send a video" href="#send-a-video" alt="Send a video" arrow />
+    <Card icon={<FaFileAlt />} title="Send a file" href="#send-a-file" alt="Send a file" arrow />
+</Cards>
+
+### Start the server
+
+-   `callback`: Optional callback function to execute when the server starts.
+
+```js copy
+client.start(() => {
+    console.log('Server started!')
+})
+```
+
+### Static file server
+
+-   `options`: Chat Bridge use [@fastify-static](https://github.com/fastify/fastify-static) plugin of Fastify. You can
+    pass any options that are supported by the plugin.
+
+```js copy
+client.static({
+    root: '/path/to/root',
+    prefix: '/public/',
+})
+```
+
+### Register a plugin
+
+-   `...args`: Chat Bridge base on [Fastify](https://www.fastify.io/), you can pass any parameters that are supported by
+    the [register](https://www.fastify.io/docs/latest/Plugins/) method.
+
+```js copy
+client.register(require('fastify-cors'), {
+    origin: '*',
+})
+```
+
+### Send an API message
+
+-   `recipientId`: The ID of the user to send the message to.
+-   `object`: The message object to send.
+
+```js copy
+client.sendApiMessage('USER_ID', {
+    text: 'Hello, world!',
+    quick_replies: [
+        {
+            content_type: 'text',
+            title: 'Hello',
+            payload: 'HELLO',
+        },
+    ],
+})
+```
+
+### Get page information
+
+```js copy
+const page = await client.getPageInfo()
+console.log(page) // { name: "Page Name", id: "PAGE_ID" }
+```
+
+### Send a text message
+
+-   `recipientId`: The ID of the user to send the message to.
+-   `text`: The text to send.
+
+```js copy
+client.sendTextMessage('USER_ID', 'Hello, world!')
+```
+
+### Send an attachment
+
+-   `recipientId`: The ID of the user to send the attachment to.
+-   `type`: The type of attachment to send. Can be `image`, `audio`, `video`, or `file`.
+-   `url`: The URL of the attachment to send.
+
+```js copy
+client.sendAttachment('USER_ID', 'image', 'https://example.com/image.jpg')
+```
+
+### Send an image
+
+-   `recipientId`: The ID of the user to send the image to.
+-   `url`: The URL of the image to send.
+
+```js copy
+client.sendImage('USER_ID', 'https://example.com/image.jpg')
+```
+
+### Send an audio file
+
+-   `recipientId`: The ID of the user to send the audio file to.
+-   `url`: The URL of the audio file to send.
+
+```js copy
+client.sendAudio('USER_ID', 'https://example.com/audio.mp3')
+```
+
+### Send a video
+
+-   `recipientId`: The ID of the user to send the video to.
+-   `url`: The URL of the video to send.
+
+```js copy
+client.sendVideo('USER_ID', 'https://example.com/video.mp4')
+```
+
+### Send a file
+
+-   `recipientId`: The ID of the user to send the file to.
+-   `url`: The URL of the file to send.
+
+```js copy
+client.sendFile('USER_ID', 'https://example.com/file.pdf')
+```
+
+## Events
+
+The `Client` class extends the [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter) class,
+emitting the following events:
+
+### Message
+
+New message received.
+
+```json
+{
+    "sender": {
+        "id": "USER_ID"
+    },
+    "recipient": {
+        "id": "PAGE_ID"
+    },
+    "timestamp": 1458692752478,
+    "message": {
+        "mid": "mid.1457764197618:41d102a3e1ae206a38",
+        "text": "hello, world!"
+    }
+}
+```
+
+### Quick reply
+
+Quick reply received.
+
+```json
+{
+    "sender": {
+        "id": "USER_ID"
+    },
+    "recipient": {
+        "id": "PAGE_ID"
+    },
+    "timestamp": 1458692752478,
+    "message": {
+        "mid": "mid.1458696618141:b4ef9d19ec21086067",
+        "quick_reply": {
+            "payload": "DEVELOPER_DEFINED_PAYLOAD"
+        }
+    }
+}
+```
+
+### Postback
+
+Post Back received.
+
+```json
+{
+    "sender": {
+        "id": "USER_ID"
+    },
+    "recipient": {
+        "id": "PAGE_ID"
+    },
+    "timestamp": 1458692752478,
+    "postback": {
+        "payload": "USER_DEFINED_PAYLOAD"
+    }
+}
+```
+
+### Basic Usage
+
+Handle incoming messages:
+
+```js copy
+client.on('message', (message) => {
+    console.log(message)
+})
+```

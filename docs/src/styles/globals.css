@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[tabindex]:focus-visible {
+    --tw-ring-offset-shadow: none !important;
+    --tw-ring-shadow: none !important;
+    box-shadow: none !important;
+}
