@@ -5,7 +5,8 @@
   "scripts": {
     "build": "bun scripts/build.ts",
     "lint": "eslint --ext .ts src",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\" --list-different",
+    "fotmat:check": "prettier --check \"src/**/*.ts\"",
     "dev": "bun test/development.ts"
   },
   "repository": {
