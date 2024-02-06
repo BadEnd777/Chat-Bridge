@@ -1,0 +1,49 @@
+# ButtonTemplate: Class
+
+The `ButtonTemplate` class is used to create a button template message. It has a `text` property and a `buttons`
+property. The `text` property is the text of the button template message. The `buttons` property is an array of
+`CallButton`, `PostbackButton`, or `UrlButton` objects.
+
+## Usage
+
+```js copy
+const { ButtonTemplate } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `ButtonTemplate` object, use the following code:
+
+```js copy
+const buttonTemplate = new ButtonTemplate('Button Template Text')
+```
+
+## Methods
+
+### addButtons
+
+-   `addButtons(buttons: Array<CallButton | PostbackButton | UrlButton>): ButtonTemplate` - Adds buttons to the
+    `ButtonTemplate` object. Returns the `ButtonTemplate` object.
+
+```js copy
+const buttonTemplate = new ButtonTemplate('Button Template Text').addButtons([
+    new CallButton('Call Button', '+6281234567890'),
+    new PostbackButton('Postback Button', 'postback'),
+    new UrlButton('Url Button', 'https://chat-bridge.pages.dev/'),
+])
+```
+
+You can learn more about the `CallButton`, `PostbackButton`, and `UrlButton` classes in the
+[Button API](/api-reference/button).
+
+## Example
+
+```js copy
+const { ButtonTemplate, CallButton, PostbackButton, UrlButton } = require('chat-bridge')
+
+const buttonTemplate = new ButtonTemplate('What do you want to do next?').addButtons([
+    new CallButton('Call Button', '+6281234567890'),
+    new PostbackButton('Postback Button', 'postback'),
+    new UrlButton('Url Button', 'https://chat-bridge.pages.dev/'),
+])
+```

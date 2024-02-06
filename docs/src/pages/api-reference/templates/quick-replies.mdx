@@ -1,0 +1,86 @@
+# QuickReplies: Class
+
+The `QuickReplies` class is used to create a quick reply message. It has a `title` property and a `quickReplies`
+property. The `title` property is the title of the quick reply message. The `quickReplies` property is an array of
+`QuickReply` objects.
+
+## Usage
+
+```js copy
+const { QuickReplies, QuickReply } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `QuickReplies` object, use the following code:
+
+```js copy
+const quickReplies = new QuickReplies('Quick Replies Title')
+```
+
+## Methods
+
+### addQuickReply
+
+-   `addQuickReply(quickReplies: QuickReply[]): QuickReplies` - Adds a quick reply to the `QuickReplies` object. Returns
+    the `QuickReplies` object.
+
+```js copy
+const quickReplies = new QuickReplies('Quick Replies Title').addQuickReply([
+    new QuickReply('Quick Reply 1').setPayload('payload1'),
+    new QuickReply('Quick Reply 2').setPayload('payload2'),
+])
+```
+
+## QuickReply: Class
+
+The `QuickReply` class is used to create a quick reply. It has a `title` property, a `payload` property, and an
+`imageUrl` property.
+
+## Usage
+
+```js copy
+const { QuickReply } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `QuickReply` object, use the following code:
+
+```js copy
+const quickReply = new QuickReply('Quick Reply Title')
+```
+
+## Methods
+
+### setPayload
+
+-   `setPayload(payload: string): QuickReply` - Sets the payload of the quick reply. Returns the `QuickReply` object.
+
+```js copy
+const quickReply = new QuickReply('Quick Reply Title').setPayload('payload')
+```
+
+### setImageUrl
+
+-   `setImageUrl(imageUrl: string): QuickReply` - Sets the image URL of the quick reply. Returns the `QuickReply`
+    object.
+
+```js copy
+const quickReply = new QuickReply('Quick Reply Title').setImageUrl('https://example.com/image.png')
+```
+
+## Example
+
+```js copy
+const { QuickReplies, QuickReply } = require('chat-bridge')
+
+const quickReplies = new QuickReplies('Choose an color').addQuickReply([
+    new QuickReply('Red')
+        .setPayload('red')
+        .setImageUrl('https://ui-avatars.com/api/?name=Red&background=FF0000&color=FFFFFF'),
+    new QuickReply('Green')
+        .setPayload('green')
+        .setImageUrl('https://ui-avatars.com/api/?name=Green&background=00FF00&color=FFFFFF'),
+])
+```

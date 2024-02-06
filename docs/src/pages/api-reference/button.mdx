@@ -1,0 +1,43 @@
+# Button API
+
+The Button API is used to create buttons that can be attached to messages. There are three types of buttons: CallButton,
+PostbackButton, and UrlButton. Each button type has a constructor that takes a title and a payload. The payload is the
+value that will be sent to your webhook when a user clicks the button. The payload is optional for UrlButton.
+
+## CallButton
+
+The CallButton is used to create a button that will initiate a phone call when clicked. The payload is the phone number
+that will be called.
+
+### Usage
+
+```js copy
+const { CallButton } = require('chat-bridge')
+
+const button = new CallButton('Call Me', '+15555555555')
+```
+
+## PostbackButton
+
+The PostbackButton is used to create a button that will send a postback event to your webhook when clicked. The payload
+is the value that will be sent to your webhook.
+
+### Usage
+
+```js copy
+const { PostbackButton } = require('chat-bridge')
+
+const button = new PostbackButton('Click Me', 'postback_value')
+```
+
+## UrlButton
+
+The UrlButton is used to create a button that will open a URL when clicked. The payload is the URL that will be opened.
+
+### Usage
+
+```js copy
+const { UrlButton } = require('chat-bridge')
+
+const button = new UrlButton('Click Me', 'https://www.google.com')
+```

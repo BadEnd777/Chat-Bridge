@@ -59,9 +59,9 @@ const config = {
     },
     logo,
     project: {
-        link: 'https://github.com/Onyx-Innovators/Chat-Bridge',
+        link: 'https://github.com/BadEnd777/Chat-Bridge',
     },
-    docsRepositoryBase: 'https://github.com/Onyx-Innovators/Chat-Bridge/tree/main/docs',
+    docsRepositoryBase: 'https://github.com/BadEnd777/Chat-Bridge/tree/main/docs',
     footer: {
         text: <span>© {new Date().getFullYear()} Onyx Innovators, Inc. All rights reserved.</span>,
     },
