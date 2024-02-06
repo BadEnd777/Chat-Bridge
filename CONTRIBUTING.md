@@ -15,7 +15,7 @@ If you're new to contributing to open source projects, you can start by looking 
 2. Clone your forked repository to your local machine:
 
    ```bash
-   git clone https://github.com/Onyx-Innovators/Chat-Bridge.git
+   git clone https://github.com/BadEnd777/Chat-Bridge.git
    ```
 
 3. Create a new branch for your changes:

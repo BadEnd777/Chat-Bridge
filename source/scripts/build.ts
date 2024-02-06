@@ -3,15 +3,25 @@ import { withSpinner, success } from '@paperdave/logger';
 import { execSync } from 'child_process';
 import { join } from 'path';
 
-// eslint-disable-next-line no-undef
 const rootPath = join(__dirname, '..', '..');
 const packagePath = join(rootPath, 'packages');
 const distPath = join(packagePath, 'dist');
-const jsonFileToCopy = join(rootPath, 'typescript', 'package.json');
+const jsonFileToCopy = join(rootPath, 'source', 'package.json');
 const jsonFileOutput = join(packagePath, 'package.json');
 
+interface PackageJson {
+    name: string;
+    version: string;
+    description: string;
+    main: string;
+    scripts: Record<string, string>;
+    dependencies: Record<string, string>;
+    devDependencies: Record<string, string>;
+    peerDependencies: Record<string, string>;
+}
+
 (async () => {
-    let packageJson;
+    let packageJson: PackageJson;
 
     // Check if distPath is not exists, then create it.
     // If exists, then remove all files in it.
@@ -91,9 +101,12 @@ const jsonFileOutput = join(packagePath, 'package.json');
         successText: 'Markdown files are copied.',
     }, async (spinner) => {
         try {
-            filesToCopy.forEach((file) => {
-                execSync(`cp ${join(rootPath, file)} ${join(packagePath, file)}`);
-            });
+            for (const file of filesToCopy) {
+                const source = join(rootPath, file);
+                const destination = join(packagePath, file);
+                // execSync(`cp ${source} ${destination}`); // 'cp' is not recognized as an internal or external command,
+                writeFileSync(destination, readFileSync(source, 'utf8'));
+            }
         } catch (error) {
             spinner.error('Failed to copy markdown files.');
             throw error;

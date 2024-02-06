@@ -7,13 +7,13 @@
     <a href="https://www.npmjs.com/package/chat-bridge">
         <img src="https://img.shields.io/npm/dt/chat-bridge" alt="NPM Downloads">
     </a>
-    <a href="https://github.com/Onyx-Innovators/Chat-Bridge">
-        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FOnyx-Innovators%2FChat-Bridge&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visit&edge_flat=false" alt="hits">
+    <a href="https://github.com/BadEnd777/Chat-Bridge">
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBadEnd777%2FChat-Bridge&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visit&edge_flat=false" alt="hits">
     </a>
-    <a href="https://github.com/Onyx-Innovators/Chat-Bridge/LICENSE">
-        <img src="https://img.shields.io/github/license/Onyx-Innovators/Chat-Bridge" alt="License">
+    <a href="https://github.com/BadEnd777/Chat-Bridge/LICENSE">
+        <img src="https://img.shields.io/github/license/BadEnd777/Chat-Bridge" alt="License">
     </a>
-    <a href="https://github.com/Onyx-Innovators/Chat-Bridge/CODE_OF_CONDUCT.md">
+    <a href="https://github.com/BadEnd777/Chat-Bridge/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Code of Conduct">
     </a>
     <p><strong>Chat Bridge</strong> is an npm package that simplifies the integration of Facebook Messenger webhook handling into your Node.js applications. It offers a convenient way to interact with the Messenger Platform, handling incoming messages, postbacks, quick replies, and more. 🚀</p>
@@ -83,7 +83,7 @@ We welcome contributions!
 
 Fixing a bug, adding a new feature, or improving the documentation — we're always happy to see your work.
 
-Read up on our [contributing guidelines](CONTRIBUTING.md) and then check out one of our [issues](https://github.com/Onyx-Innovators/Chat-Bridge/issues).
+Read up on our [contributing guidelines](CONTRIBUTING.md) and then check out one of our [issues](https://github.com/BadEnd777/Chat-Bridge/issues).
 
 ### Acknowledgments
 

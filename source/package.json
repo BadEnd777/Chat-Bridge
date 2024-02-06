@@ -2,18 +2,15 @@
   "name": "chat-bridge",
   "version": "1.2.1",
   "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
-  "scripts": {
-    "build": "bun scripts/build.ts",
-    "lint": "eslint --ext .ts src",
-    "format:fix": "prettier --write \"src/**/*.ts\" --list-different",
-    "fotmat:check": "prettier --check \"src/**/*.ts\"",
-    "dev": "bun test/development.ts"
-  },
+  "author": "Onyx Innovators",
+  "homepage": "https://chat-bridge.pages.dev/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Onyx-Innovators/Chat-Bridge.git"
+    "url": "git+https://github.com/BadEnd777/Chat-Bridge.git"
   },
-  "author": "Onyx Innovators",
+  "bugs": {
+    "url": "https:/github.com/BadEnd777/Chat-Bridge/issues"
+  },
   "keywords": [
     "facebook",
     "messenger",
@@ -29,10 +26,12 @@
     "ts"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https:/github.com/Onyx-Innovators/Chat-Bridge/issues"
+  "scripts": {
+    "build": "pnpx ts-node scripts/build.ts",
+    "lint": "eslint --ext .ts src",
+    "fotmat": "prettier --check \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\" --list-different"
   },
-  "homepage": "https://onyx-innovators.github.io/Chat-Bridge/",
   "dependencies": {
     "@fastify/static": "^6.12.0",
     "fastify": "^4.25.2",
@@ -44,7 +43,8 @@
     "@typescript-eslint/eslint-plugin": "^6.18.0",
     "@typescript-eslint/parser": "^6.18.1",
     "eslint": "^8.56.0",
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
