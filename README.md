@@ -32,10 +32,13 @@
 
 ### Features
 
-- **Easy to use** — Chat Bridge is designed to be easy to use, with a simple API that allows you to get started quickly.
-- **Fast** — Chat Bridge is built on top of [undici](https://undici.nodejs.org/), a fast HTTP/1.1 client, and [fastify](https://www.fastify.io/), a fast web framework for Node.js.
-- **Powerful** — Chat Bridge supports all the features of the Messenger Platform, including quick replies, postbacks, and more.
-- **Open source** — Chat Bridge is open source, and is licensed under the [MIT License](LICENSE).
+- **Easy Integration**: Simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.
+- **Incoming Events Handling**: Provides a convenient way to handle incoming events from users.
+- **Customizable**: Offers flexibility for customization according to specific application needs.
+- **Event Driven**: Built on an event-driven architecture, making it easy to listen for and respond to various events.
+- **Simple API**: Provides a straightforward API for sending messages and interacting with users.
+- **Scalable**: Designed to scale with your application, handling high volumes of incoming messages efficiently.
+- **Open Source**: Licensed under the [MIT License](LICENSE), Chat Bridge is open source and free to use.
 
 ### Installation
 
