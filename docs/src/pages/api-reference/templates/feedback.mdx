@@ -1,0 +1,93 @@
+# FeedbackTemplate: Class
+
+The `FeedbackTemplate` class is used to create a feedback template message. It has a `title` property, a `subtitle`
+property, a `buttonTitle` property, a `feedbackScreens` property, a `businessPrivacy` property, and an `expiresInDays`
+property.
+
+## Usage
+
+```js copy
+const { FeedbackTemplate } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `FeedbackTemplate` object, use the following code:
+
+```js copy
+const feedbackTemplate = new FeedbackTemplate(
+    'Feedback Template Title',
+    'Feedback Template Subtitle',
+    'Feedback Button Title'
+)
+```
+
+## Methods
+
+### addFeedbackScreens
+
+-   `addFeedbackScreens(feedbackScreens: Array<FeedbackScreen>): FeedbackTemplate` - Adds feedback screens to the
+    feedback template message. Returns the `FeedbackTemplate` object.
+
+```js copy
+const feedbackTemplate = new FeedbackTemplate(
+    'Feedback Template Title',
+    'Feedback Template Subtitle',
+    'Feedback Button Title'
+).addFeedbackScreens([
+    new FeedbackScreen().addQuestions([
+        new FeedbackQuestion('hauydmns8', FeedbackQuestionType.CSAT)
+            .setTitle('How would you rate your experience with Original Coast Clothing?')
+            .setScoreLabel('neg_pos')
+            .setScoreOption('five_stars')
+            .setFollowUp(new FollowUp('free_form').setPlaceholder('Give additional feedback')),
+    ]),
+])
+```
+
+### setBusinessPrivacy
+
+-   `setBusinessPrivacy(url: string): FeedbackTemplate` - Sets the business privacy URL of the feedback template
+    message. Returns the `FeedbackTemplate` object.
+
+```js copy
+const feedbackTemplate = new FeedbackTemplate(
+    'Feedback Template Title',
+    'Feedback Template Subtitle',
+    'Feedback Button Title'
+).setBusinessPrivacy('https://www.example.com')
+```
+
+### setExpiresInDays
+
+-   `setExpiresInDays(expiresInDays: number): FeedbackTemplate` - Sets the expiration in days of the feedback template
+    message. Returns the `FeedbackTemplate` object.
+
+```js copy
+const feedbackTemplate = new FeedbackTemplate(
+    'Feedback Template Title',
+    'Feedback Template Subtitle',
+    'Feedback Button Title'
+).setExpiresInDays(30)
+```
+
+## Example
+
+```js copy
+const feedbackTemplate = new FeedbackTemplate(
+    'Rate your experience with Original Coast Clothing.',
+    'Let Original Coast Clothing know how they are doing by answering two questions',
+    'Rate Experience'
+)
+    .addFeedbackScreens([
+        new FeedbackScreen().addQuestions([
+            new FeedbackQuestion('hauydmns8', FeedbackQuestionType.CSAT)
+                .setTitle('How would you rate your experience with Original Coast Clothing?')
+                .setScoreLabel('neg_pos')
+                .setScoreOption('five_stars')
+                .setFollowUp(new FollowUp('free_form').setPlaceholder('Give additional feedback')),
+        ]),
+    ])
+    .setBusinessPrivacy('https://www.example.com')
+    .setExpiresInDays(3)
+```

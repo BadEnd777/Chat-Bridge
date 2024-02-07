@@ -1,0 +1,138 @@
+# CouponTemplate: Class
+
+The `CouponTemplate` class is used to create a coupon template message. It has a `title` property, a `subtitle`
+property, a `couponCode` property, a `couponUrl` property, a `couponUrlButtonTitle` property, a `couponPreMessage`
+property, an `imageUrl` property, and a `payload` property.
+
+## Usage
+
+```js copy
+const { CouponTemplate } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `CouponTemplate` object, use the following code:
+
+```js copy
+const couponTemplate = new CouponTemplate('Coupon Template Title', 'COUPONCODE', 'https://example.com/coupon')
+```
+
+## Methods
+
+### setTitle
+
+-   `setTitle(title: string): CouponTemplate` - Sets the title of the coupon template message. Returns the
+    `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate('Coupon Template Title', 'COUPONCODE', 'https://example.com/coupon').setTitle(
+    'New Coupon Template Title'
+)
+```
+
+### setSubtitle
+
+-   `setSubtitle(subtitle: string): CouponTemplate` - Sets the subtitle of the coupon template message. Returns the
+    `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setSubtitle('Coupon Template Subtitle')
+```
+
+### setCouponCode
+
+-   `setCouponCode(couponCode: string): CouponTemplate` - Sets the coupon code of the coupon template message. Returns
+    the `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setCouponCode('NEWCOUPONCODE')
+```
+
+### setCouponUrl
+
+-   `setCouponUrl(couponUrl: string): CouponTemplate` - Sets the coupon URL of the coupon template message. Returns the
+    `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setCouponUrl('https://example.com/new-coupon')
+```
+
+### setCouponUrlButtonTitle
+
+-   `setCouponUrlButtonTitle(couponUrlButtonTitle: string): CouponTemplate` - Sets the coupon URL button title of the
+    coupon template message. Returns the `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setCouponUrlButtonTitle('New Coupon URL Button Title')
+```
+
+### setCouponPreMessage
+
+-   `setCouponPreMessage(couponPreMessage: string): CouponTemplate` - Sets the coupon pre-message of the coupon template
+    message. Returns the `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setCouponPreMessage('New Coupon Pre-Message')
+```
+
+### setImageUrl
+
+-   `setImageUrl(imageUrl: string): CouponTemplate` - Sets the image URL of the coupon template message. Returns the
+    `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setImageUrl('https://example.com/coupon-image.jpg')
+```
+
+### setPayload
+
+-   `setPayload(payload: string): CouponTemplate` - Sets the payload of the coupon template message. Returns the
+    `CouponTemplate` object.
+
+```js copy
+const couponTemplate = new CouponTemplate(
+    'Coupon Template Title',
+    'COUPONCODE',
+    'https://example.com/coupon'
+).setPayload('NEWPAYLOAD')
+```
+
+## Example
+
+```js copy
+const { CouponTemplate } = require('chat-bridge')
+
+const couponTemplate = new CouponTemplate('Coupon Template Title', 'COUPONCODE', 'https://example.com/coupon')
+    .setSubtitle('Coupon Template Subtitle')
+    .setCouponCode('NEWCOUPONCODE')
+    .setCouponUrl('https://example.com/new-coupon')
+    .setCouponUrlButtonTitle('New Coupon URL Button Title')
+    .setCouponPreMessage('New Coupon Pre-Message')
+    .setImageUrl('https://example.com/coupon-image.jpg')
+    .setPayload('NEWPAYLOAD')
+```

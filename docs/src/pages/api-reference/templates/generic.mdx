@@ -1,0 +1,49 @@
+# GenericTemplate: Class
+
+The `GenericTemplate` class is used to create a generic template message. It has an `elements` property.
+
+## Usage
+
+```js copy
+const { GenericTemplate } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `GenericTemplate` object, use the following code:
+
+```js copy
+const genericTemplate = new GenericTemplate()
+```
+
+## Methods
+
+### addElement
+
+-   `addElement(element: GenericElement): GenericTemplate` - Adds an element to the generic template message. Returns
+    the `GenericTemplate` object.
+
+```js copy
+const genericTemplate = new GenericTemplate().addElement(
+    new GenericElement('Element Title', 'Element Subtitle', 'https://example.com/element-image.jpg')
+)
+```
+
+#### GenericElement
+
+The `GenericElement` class is used to create an element for the generic template message. It has a `title`, `subtitle`,
+`imageUrl`, and `buttons` properties.
+
+## Example
+
+```js copy
+const { GenericTemplate, GenericElement } = require('chat-bridge')
+
+const genericTemplate = new GenericTemplate().addElement(
+    new GenericElement('Title', 'Subtitle', 'https://example.com/image.jpg').addButtons([
+        new UrlButton('Button', 'https://example.com'),
+        new PostbackButton('Button', 'POSTBACK_PAYLOAD'),
+        new CallButton('Button', '+1234567890'),
+    ])
+)
+```

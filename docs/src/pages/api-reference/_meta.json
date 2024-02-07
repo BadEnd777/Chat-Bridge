@@ -1,6 +1,5 @@
 {
     "core": "Core API",
     "button": "Button API",
-    "elements": "Elements API",
     "templates": "Templates API"
 }

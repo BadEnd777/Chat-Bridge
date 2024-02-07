@@ -1,0 +1,128 @@
+# ReceiptTemplate: Class
+
+The `ReceiptTemplate` class is used to create a receipt template message. It has a `recipientName`, `orderNumber`,
+`currency`, `paymentMethod`, `timestamp`, `elements`, `address`, `summary`, and `adjustments` properties.
+
+## Usage
+
+```js copy
+const { ReceiptTemplate, ReceiptElement, Address, Summary, Adjustment } = require('chat-bridge')
+```
+
+## Constructor
+
+To create a new `ReceiptTemplate` object, use the following code:
+
+```js copy
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+)
+```
+
+## Methods
+
+### addElement
+
+-   `addElement(element: ReceiptElement): ReceiptTemplate` - Adds an element to the receipt template message. Returns
+    the `ReceiptTemplate` object.
+
+```js copy
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+).addElement(
+    new ReceiptElement('Element Title', 'Element Subtitle', 1, 100, 'USD', 'https://example.com/element-image.jpg')
+)
+```
+
+#### ReceiptElement
+
+The `ReceiptElement` class is used to create an element for the receipt template message. It has a `title`, `subtitle`,
+`quantity`, `price`, `currency`, and `imageUrl` properties.
+
+### setAddress
+
+-   `setAddress(address: Address): ReceiptTemplate` - Sets the address for the receipt template message. Returns the
+    `ReceiptTemplate` object.
+
+```js copy
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+).setAddress(new Address('1234 Elm Street', 'Springfield', '12345', 'OH', 'US'))
+```
+
+#### Address
+
+The `Address` class is used to create an address for the receipt template message. It has a `street1`, `city`,
+`postalCode`, `state`, and `country` properties.
+
+### setSummary
+
+-   `setSummary(summary: Summary): ReceiptTemplate` - Sets the summary for the receipt template message. Returns the
+    `ReceiptTemplate` object.
+
+```js copy
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+).setSummary(new Summary(100, 10, 5, 115))
+```
+
+#### Summary
+
+The `Summary` class is used to create a summary for the receipt template message. It has a `subtotal`, `shippingCost`,
+`totalTax`, and `totalCost` properties.
+
+### addAdjustments
+
+-   `addAdjustments(adjustments: Array<Adjustment>): ReceiptTemplate` - Adds adjustments to the receipt template
+    message. Returns the `ReceiptTemplate` object.
+
+```js copy
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+).addAdjustments([new Adjustment('Discount', -10), new Adjustment('Tax', 5)])
+```
+
+#### Adjustment
+
+The `Adjustment` class is used to create an adjustment for the receipt template message. It has a `name` and `amount`
+properties.
+
+## Example
+
+```js copy
+const { ReceiptTemplate, ReceiptElement, Address, Summary, Adjustment } = require('chat-bridge')
+
+const receiptTemplate = new ReceiptTemplate(
+    'Recipient Name',
+    'Order Number',
+    'USD',
+    'Payment Method',
+    '2022-01-01T00:00:00Z'
+)
+    .addElement(
+        new ReceiptElement('Element Title', 'Element Subtitle', 1, 100, 'USD', 'https://example.com/element-image.jpg')
+    )
+    .setAddress(new Address('1234 Elm Street', 'Springfield', '12345', 'OH', 'US'))
+    .setSummary(new Summary(100, 10, 5, 115))
+    .addAdjustments([new Adjustment('Discount', -10), new Adjustment('Tax', 5)])
+```

@@ -1,10 +1,6 @@
-import { Cards, Card } from 'nextra/components'
-import { FaPlus, FaSearch, FaSearchPlus, FaTrash, FaTrashAlt, FaKey } from 'react-icons/fa'
-
 # Collections: Class
 
-The `Collections` class is a generic class for managing collections of items. It is designed to work with objects that
-implement the `Identifiable` interface.
+The `Collections` class is a generic class for managing collections of items.
 
 ## Usage
 
@@ -22,45 +18,21 @@ const collections = new Collections()
 
 ## Methods
 
-<Cards>
-    <Card icon={<FaPlus />} title="Add" href="#add" alt="Add" arrow />
-    <Card icon={<FaSearch />} title="Get" href="#get" alt="Get" arrow />
-    <Card icon={<FaSearchPlus />} title="GetAll" href="#getall" alt="GetAll" arrow />
-    <Card icon={<FaTrash />} title="Remove" href="#remove" alt="Remove" arrow />
-    <Card icon={<FaTrashAlt />} title="RemoveAll" href="#removeall" alt="RemoveAll" arrow />
-    <Card icon={<FaKey />} title="GetKey" href="#getkey" alt="GetKey" arrow />
-</Cards>
+### add
 
-### Add
+Adds an item to the collection.
 
--   `add(item: T): void` - Adds an item to the collections.
-    -   `item`: The item to be added.
+```js copy
+collections.add({ name: 'item1', value: 1 })
+```
 
-### Get
+### get
 
--   `get(key: string): T | undefined` - Gets an item from the collections based on the provided key.
-    -   `key`: The key of the item to retrieve.
-    -   **Returns:** The retrieved item or `undefined` if not found.
+Retrieves an item from the collection by name.
 
-### GetAll
-
--   `getAll(): T[]` - Gets all items from the collections.
-    -   **Returns:** An array containing all items in the collections.
-
-### Remove
-
--   `remove(key: string): void` - Removes an item from the collections based on the provided key.
-    -   `key`: The key of the item to be removed.
-
-### RemoveAll
-
--   `removeAll(): void` - Removes all items from the collections.
-
-### GetKey
-
--   `getKey(item: T): string` - Gets the key of an item.
-    -   `item`: The item for which to retrieve the key.
-    -   **Returns:** The key of the provided item.
+```js copy
+collections.get('item1') // { name: 'item1', value: 1 }
+```
 
 ## Example
 
@@ -68,25 +40,12 @@ const collections = new Collections()
 // Instantiate a new Collections
 const collections = new Collections()
 
-// Add some items
-collections.add({ id: '1' })
-collections.add({ id: '2' })
-collections.add({ id: '3' })
+// Add an item to the collection
+collections.add({ name: 'item1', value: 1 })
+collections.add({ name: 'item2', value: 2 })
 
-// Log all items
-console.log(collections.getAll()) // [{ id: '1' }, { id: '2' }, { id: '3' }]
-
-// Get an item by key
-console.log(collections.get('2')) // { id: '2' }
-
-// Attempt to get an item with an invalid key
-console.log(collections.get('4')) // undefined
-
-// Remove an item by key
-collections.remove('2')
-console.log(collections.getAll()) // [{ id: '1' }, { id: '3' }]
-
-// Remove all items
-collections.removeAll()
-console.log(collections.getAll()) // []
+// Retrieve an item from the collection
+collections.get('item1') // { name: 'item1', value: 1 }
+collections.get('item2') // { name: 'item2', value: 2 }
+collections.get('item3') // undefined
 ```

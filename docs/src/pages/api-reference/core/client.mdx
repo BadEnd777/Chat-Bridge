@@ -116,6 +116,24 @@ client.sendApiMessage('USER_ID', {
 })
 ```
 
+<Callout type="info">
+    <strong>Tips:</strong> You can use the `send` method as a shorthand for the `sendApiMessage` method.
+
+    ```js copy
+    client.send('USER_ID', {
+        text: 'Hello, world!',
+        quick_replies: [
+            {
+                content_type: 'text',
+                title: 'Hello',
+                payload: 'HELLO',
+            },
+        ],
+    })
+    ```
+
+</Callout>
+
 ### Get page information
 
 ```js copy
@@ -130,6 +148,16 @@ console.log(page) // { name: "Page Name", id: "PAGE_ID" }
 
 ```js copy
 client.sendTextMessage('USER_ID', 'Hello, world!')
+```
+
+### Send an attachment
+
+-   `recipientId`: The ID of the user to send the attachment to.
+-   `type`: The type of attachment to send. Can be `image`, `audio`, `video`, or `file`.
+-   `url`: The URL of the attachment to send.
+
+```js copy
+client.sendAttachment('USER_ID', 'image', 'https://example.com/image.jpg')
 ```
 
 ### Send an attachment
@@ -178,13 +206,13 @@ client.sendVideo('USER_ID', 'https://example.com/video.mp4')
 client.sendFile('USER_ID', 'https://example.com/file.pdf')
 ```
 
-### Send a typing indicator
+### Set typing indicator
 
 -   `recipientId`: The ID of the user to send the typing indicator to.
--   `typing`: Whether the typing indicator should be on or off.
+-   `typing`: Whether to show the typing indicator. Defaults to `true`.
 
 ```js copy
-client.sendTyping('USER_ID', true)
+client.setTyping('USER_ID', true)
 ```
 
 ## Events

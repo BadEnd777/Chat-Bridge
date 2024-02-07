@@ -26,7 +26,7 @@ const buttonTemplate = new ButtonTemplate('Button Template Text')
     `ButtonTemplate` object. Returns the `ButtonTemplate` object.
 
 ```js copy
-const buttonTemplate = new ButtonTemplate('Button Template Text').addButtons([
+const buttonTemplate = new ButtonTemplate('Hello, World!').addButtons([
     new CallButton('Call Button', '+6281234567890'),
     new PostbackButton('Postback Button', 'postback'),
     new UrlButton('Url Button', 'https://chat-bridge.pages.dev/'),
@@ -35,15 +35,3 @@ const buttonTemplate = new ButtonTemplate('Button Template Text').addButtons([
 
 You can learn more about the `CallButton`, `PostbackButton`, and `UrlButton` classes in the
 [Button API](/api-reference/button).
-
-## Example
-
-```js copy
-const { ButtonTemplate, CallButton, PostbackButton, UrlButton } = require('chat-bridge')
-
-const buttonTemplate = new ButtonTemplate('What do you want to do next?').addButtons([
-    new CallButton('Call Button', '+6281234567890'),
-    new PostbackButton('Postback Button', 'postback'),
-    new UrlButton('Url Button', 'https://chat-bridge.pages.dev/'),
-])
-```

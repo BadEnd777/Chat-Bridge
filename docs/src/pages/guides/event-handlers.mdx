@@ -51,10 +51,13 @@ be executed only once or not. The `run` property is the function that will be ex
 Now that we have created the `message.js` file, we need to read it and register the event. To do this, we will use the
 `readdir` function from the `fs` module.
 
-```js filename="index.js" {10-20} copy
+```js filename="index.js" {13-23} copy
 const { Client } = require('chat-bridge')
+const dotenv = require('dotenv')
 const path = require('path')
 const fs = require('fs')
+
+dotenv.config()
 
 const client = new Client({
     accessToken: process.env.ACCESS_TOKEN,
@@ -100,12 +103,12 @@ module.exports = (client) => {
 You can use `for...of` directly on the filtered array of event files, eliminating the need for the separate `eventsDir`
 variable.
 
-```js filename="index.js" {5-17} copy
+```js filename="events/index.js" {5-17} copy
 const path = require('path')
 const fs = require('fs')
 
 module.exports = (client) => {
-    const eventsDir = path.join(__dirname, 'events')
+    const eventsDir = path.join(__dirname)
     const eventFiles = fs.readdirSync(eventsDir).filter((file) => file.endsWith('.js'))
 
     for (const file of eventFiles) {
@@ -133,9 +136,12 @@ Now, we can create new files inside the `events` folder and they will be automat
 Now, we need to load the `events` folder. To do this, we will import the `events` folder in the `index.js` file and pass
 the `client` instance as an argument.
 
-```js filename="index.js" {9} copy
+```js filename="index.js" {12} copy
 const { Client } = require('chat-bridge')
 const events = require('./events')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 const client = new Client({
     accessToken: process.env.ACCESS_TOKEN,
