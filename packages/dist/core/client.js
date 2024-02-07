@@ -134,7 +134,7 @@ var Client = /** @class */ (function (_super) {
      */
     Client.prototype.start = function (callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var startServer;
+            var startServer, err_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -142,7 +142,7 @@ var Client = /** @class */ (function (_super) {
                         this.server.post(this.endpoint, this.handleWebhookRequest.bind(this));
                         this.server.get(this.endpoint, this.handleVerifyRequest.bind(this));
                         startServer = function () { return __awaiter(_this, void 0, void 0, function () {
-                            var err_1;
+                            var err_2;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
@@ -154,16 +154,25 @@ var Client = /** @class */ (function (_super) {
                                             callback();
                                         return [3 /*break*/, 3];
                                     case 2:
-                                        err_1 = _a.sent();
-                                        console.error(err_1);
-                                        process.exit(1);
-                                        return [3 /*break*/, 3];
+                                        err_2 = _a.sent();
+                                        throw new Error("Failed to start server: ".concat(err_2));
                                     case 3: return [2 /*return*/];
                                 }
                             });
                         }); };
-                        return [4 /*yield*/, startServer()];
+                        if (!!this.page.id) return [3 /*break*/, 4];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.getPageInfo()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_1 = _a.sent();
+                        throw new Error("Check your access token: ".concat(err_1));
+                    case 4: return [4 /*yield*/, startServer()];
+                    case 5:
                         _a.sent();
                         return [2 /*return*/];
                 }

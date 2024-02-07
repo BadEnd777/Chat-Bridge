@@ -100,10 +100,18 @@ export class Client extends EventEmitter {
                 await this.server.listen({ port: this.port, host: this.host });
                 if (callback) callback();
             } catch (err) {
-                console.error(err);
-                process.exit(1);
+                throw new Error(`Failed to start server: ${err}`);
             }
         };
+
+        // Check page information
+        if (!this.page.id) {
+            try {
+                await this.getPageInfo();
+            } catch (err) {
+                throw new Error(`Check your access token: ${err}`);
+            }
+        }
 
         await startServer();
     }

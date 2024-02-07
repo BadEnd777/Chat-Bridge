@@ -126,5 +126,33 @@ interface PackageJson {
         }
     });
 
+    // Publish package to yalc (local npm registry for development)
+    await withSpinner({
+        text: 'Publishing package to yalc...',
+        successText: 'Package is published to yalc.',
+    }, async (spinner) => {
+        try {
+            process.chdir(packagePath);
+            execSync('pnpx yalc publish');
+        } catch (error) {
+            spinner.error('Failed to publish package to yalc.');
+            throw error;
+        }
+    });
+
+    // Update local package in the example project
+    await withSpinner({
+        text: 'Updating local package in the example project...',
+        successText: 'Local package is updated in the example project.',
+    }, async (spinner) => {
+        try {
+            process.chdir(join(rootPath, 'example'));
+            execSync('pnpx yalc update chat-bridge');
+        } catch (error) {
+            spinner.error('Failed to update local package in the example project.');
+            throw error;
+        }
+    });
+
     success('Build is done.');
 })();
