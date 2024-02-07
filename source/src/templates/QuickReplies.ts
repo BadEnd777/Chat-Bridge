@@ -1,6 +1,6 @@
 export class QuickReplies {
     private title: string;
-    private quickReplies: QuickReply[] = [];
+    private quickReplies: Array<QuickReply> = [];
 
     constructor(title: string) {
         this.title = title;

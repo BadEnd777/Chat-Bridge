@@ -154,5 +154,19 @@ interface PackageJson {
         }
     });
 
+    // Install dependencies in the example project
+    await withSpinner({
+        text: 'Installing dependencies in the example project...',
+        successText: 'Dependencies are installed in the example project.',
+    }, async (spinner) => {
+        try {
+            process.chdir(join(rootPath, 'example'));
+            execSync('pnpm install');
+        } catch (error) {
+            spinner.error('Failed to install dependencies in the example project.');
+            throw error;
+        }
+    });
+
     success('Build is done.');
 })();

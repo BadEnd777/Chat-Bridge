@@ -19,6 +19,7 @@ export * from './elements/ReceiptElement';
 // Templates
 export * from './templates/ButtonTemplate';
 export * from './templates/CouponTemplate';
+export * from './templates/FeedbackTemplate';
 export * from './templates/GenericTemplate';
 export * from './templates/MediaTemplate';
 export * from './templates/ProductTemplate';

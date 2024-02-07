@@ -32,6 +32,7 @@ __exportStar(require("./elements/ReceiptElement"), exports);
 // Templates
 __exportStar(require("./templates/ButtonTemplate"), exports);
 __exportStar(require("./templates/CouponTemplate"), exports);
+__exportStar(require("./templates/FeedbackTemplate"), exports);
 __exportStar(require("./templates/GenericTemplate"), exports);
 __exportStar(require("./templates/MediaTemplate"), exports);
 __exportStar(require("./templates/ProductTemplate"), exports);

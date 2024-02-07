@@ -1,24 +1,31 @@
+export enum FeedbackQuestionType {
+    CSAT = 'csat',
+    NPS = 'nps',
+    CES = 'ces'
+}
+
 export class FeedbackTemplate {
     private title: string;
     private subtitle: string;
     private buttonTitle: string;
     private feedbackScreens: Array<FeedbackScreen> = [];
-    private businessPrivacy?: BusinessPrivacy;
+    private businessPrivacy: string;
     private expiresInDays?: number;
 
     constructor(title: string, subtitle: string, buttonTitle: string) {
         this.title = title;
         this.subtitle = subtitle;
         this.buttonTitle = buttonTitle;
+        this.businessPrivacy = '';
     }
 
-    public addFeedbackScreen(feedbackScreen: FeedbackScreen): FeedbackTemplate {
-        this.feedbackScreens.push(feedbackScreen);
+    public addFeedbackScreens(feedbackScreens: Array<FeedbackScreen>): FeedbackTemplate {
+        this.feedbackScreens = this.feedbackScreens.concat(feedbackScreens);
         return this;
     }
 
-    public setBusinessPrivacy(businessPrivacy: BusinessPrivacy): FeedbackTemplate {
-        this.businessPrivacy = businessPrivacy;
+    public setBusinessPrivacy(url: string): FeedbackTemplate {
+        this.businessPrivacy = url;
         return this;
     }
 
@@ -37,7 +44,9 @@ export class FeedbackTemplate {
                     subtitle: this.subtitle,
                     button_title: this.buttonTitle,
                     feedback_screens: this.feedbackScreens,
-                    business_privacy: this.businessPrivacy,
+                    business_privacy: {
+                        url: this.businessPrivacy
+                    },
                     expires_in_days: this.expiresInDays
                 }
             }
@@ -46,10 +55,10 @@ export class FeedbackTemplate {
 }
 
 export class FeedbackScreen {
-    private questions: Array<Question> = [];
+    private questions: Array<FeedbackQuestion> = [];
 
-    public addQuestion(question: Question): FeedbackScreen {
-        this.questions.push(question);
+    public addQuestions(questions: Array<FeedbackQuestion>): FeedbackScreen {
+        this.questions = this.questions.concat(questions);
         return this;
     }
 
@@ -60,41 +69,35 @@ export class FeedbackScreen {
     }
 }
 
-export enum ScoreType {
-    CSAT = 'csat',
-    NPS = 'nps',
-    CES = 'ces'
-}
-
-export class Question {
+export class FeedbackQuestion {
     private id: string;
-    private type: ScoreType;
+    private type: FeedbackQuestionType;
     private title?: string;
     private scoreLabel?: string;
     private scoreOption?: string;
     private followUp?: FollowUp;
 
-    constructor(id: string, type: ScoreType) {
+    constructor(id: string, type: FeedbackQuestionType) {
         this.id = id;
         this.type = type;
     }
 
-    public setTitle(title: string): Question {
+    public setTitle(title: string): FeedbackQuestion {
         this.title = title;
         return this;
     }
 
-    public setScoreLabel(scoreLabel: string): Question {
+    public setScoreLabel(scoreLabel: string): FeedbackQuestion {
         this.scoreLabel = scoreLabel;
         return this;
     }
 
-    public setScoreOption(scoreOption: string): Question {
+    public setScoreOption(scoreOption: string): FeedbackQuestion {
         this.scoreOption = scoreOption;
         return this;
     }
 
-    public setFollowUp(followUp: FollowUp): Question {
+    public setFollowUp(followUp: FollowUp): FeedbackQuestion {
         this.followUp = followUp;
         return this;
     }
@@ -128,20 +131,6 @@ export class FollowUp {
         return {
             type: this.type,
             placeholder: this.placeholder
-        };
-    }
-}
-
-export class BusinessPrivacy {
-    private url: string;
-
-    constructor(url: string) {
-        this.url = url;
-    }
-
-    toJSON() {
-        return {
-            url: this.url
         };
     }
 }

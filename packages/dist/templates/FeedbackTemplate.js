@@ -1,19 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessPrivacy = exports.FollowUp = exports.Question = exports.ScoreType = exports.FeedbackScreen = exports.FeedbackTemplate = void 0;
+exports.FollowUp = exports.FeedbackQuestion = exports.FeedbackScreen = exports.FeedbackTemplate = exports.FeedbackQuestionType = void 0;
+var FeedbackQuestionType;
+(function (FeedbackQuestionType) {
+    FeedbackQuestionType["CSAT"] = "csat";
+    FeedbackQuestionType["NPS"] = "nps";
+    FeedbackQuestionType["CES"] = "ces";
+})(FeedbackQuestionType || (exports.FeedbackQuestionType = FeedbackQuestionType = {}));
 var FeedbackTemplate = /** @class */ (function () {
     function FeedbackTemplate(title, subtitle, buttonTitle) {
         this.feedbackScreens = [];
         this.title = title;
         this.subtitle = subtitle;
         this.buttonTitle = buttonTitle;
+        this.businessPrivacy = '';
     }
-    FeedbackTemplate.prototype.addFeedbackScreen = function (feedbackScreen) {
-        this.feedbackScreens.push(feedbackScreen);
+    FeedbackTemplate.prototype.addFeedbackScreens = function (feedbackScreens) {
+        this.feedbackScreens = this.feedbackScreens.concat(feedbackScreens);
         return this;
     };
-    FeedbackTemplate.prototype.setBusinessPrivacy = function (businessPrivacy) {
-        this.businessPrivacy = businessPrivacy;
+    FeedbackTemplate.prototype.setBusinessPrivacy = function (url) {
+        this.businessPrivacy = url;
         return this;
     };
     FeedbackTemplate.prototype.setExpiresInDays = function (expiresInDays) {
@@ -30,7 +37,9 @@ var FeedbackTemplate = /** @class */ (function () {
                     subtitle: this.subtitle,
                     button_title: this.buttonTitle,
                     feedback_screens: this.feedbackScreens,
-                    business_privacy: this.businessPrivacy,
+                    business_privacy: {
+                        url: this.businessPrivacy
+                    },
                     expires_in_days: this.expiresInDays
                 }
             }
@@ -43,8 +52,8 @@ var FeedbackScreen = /** @class */ (function () {
     function FeedbackScreen() {
         this.questions = [];
     }
-    FeedbackScreen.prototype.addQuestion = function (question) {
-        this.questions.push(question);
+    FeedbackScreen.prototype.addQuestions = function (questions) {
+        this.questions = this.questions.concat(questions);
         return this;
     };
     FeedbackScreen.prototype.toJSON = function () {
@@ -55,34 +64,28 @@ var FeedbackScreen = /** @class */ (function () {
     return FeedbackScreen;
 }());
 exports.FeedbackScreen = FeedbackScreen;
-var ScoreType;
-(function (ScoreType) {
-    ScoreType["CSAT"] = "csat";
-    ScoreType["NPS"] = "nps";
-    ScoreType["CES"] = "ces";
-})(ScoreType || (exports.ScoreType = ScoreType = {}));
-var Question = /** @class */ (function () {
-    function Question(id, type) {
+var FeedbackQuestion = /** @class */ (function () {
+    function FeedbackQuestion(id, type) {
         this.id = id;
         this.type = type;
     }
-    Question.prototype.setTitle = function (title) {
+    FeedbackQuestion.prototype.setTitle = function (title) {
         this.title = title;
         return this;
     };
-    Question.prototype.setScoreLabel = function (scoreLabel) {
+    FeedbackQuestion.prototype.setScoreLabel = function (scoreLabel) {
         this.scoreLabel = scoreLabel;
         return this;
     };
-    Question.prototype.setScoreOption = function (scoreOption) {
+    FeedbackQuestion.prototype.setScoreOption = function (scoreOption) {
         this.scoreOption = scoreOption;
         return this;
     };
-    Question.prototype.setFollowUp = function (followUp) {
+    FeedbackQuestion.prototype.setFollowUp = function (followUp) {
         this.followUp = followUp;
         return this;
     };
-    Question.prototype.toJSON = function () {
+    FeedbackQuestion.prototype.toJSON = function () {
         return {
             id: this.id,
             type: this.type,
@@ -92,9 +95,9 @@ var Question = /** @class */ (function () {
             follow_up: this.followUp
         };
     };
-    return Question;
+    return FeedbackQuestion;
 }());
-exports.Question = Question;
+exports.FeedbackQuestion = FeedbackQuestion;
 var FollowUp = /** @class */ (function () {
     function FollowUp(type) {
         this.type = type;
@@ -112,15 +115,3 @@ var FollowUp = /** @class */ (function () {
     return FollowUp;
 }());
 exports.FollowUp = FollowUp;
-var BusinessPrivacy = /** @class */ (function () {
-    function BusinessPrivacy(url) {
-        this.url = url;
-    }
-    BusinessPrivacy.prototype.toJSON = function () {
-        return {
-            url: this.url
-        };
-    };
-    return BusinessPrivacy;
-}());
-exports.BusinessPrivacy = BusinessPrivacy;
