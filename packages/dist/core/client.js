@@ -424,6 +424,65 @@ var Client = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     * Set persistent menu
+     * @memberof Client
+     * @example
+     * const { PersistentMenu, PersistentMenuItem, CallToAction } = require('chat-bridge');
+     *
+     * const persistentMenu = new PersistentMenu('12345', [
+     *     new PersistentMenuItem('default', false, [
+     *         new CallToAction('postback', 'Help', 'HELP_PAYLOAD', '', ''),
+     *         new CallToAction('postback', 'Start', 'START_PAYLOAD', '', '')
+     *     ])
+     * ]);
+     *
+     * client.setPersistentMenu(persistentMenu);
+     * @param {PersistentMenu} persistentMenu
+     */
+    Client.prototype.setPersistentMenu = function (psid, persistentMenu) {
+        return __awaiter(this, void 0, void 0, function () {
+            var body;
+            return __generator(this, function (_a) {
+                body = {
+                    psid: psid,
+                    persistent_menu: persistentMenu
+                };
+                return [2 /*return*/, this.sendRequest({ method: 'POST', path: 'custom_user_settings', body: body })];
+            });
+        });
+    };
+    /**
+     * Get persistent menu
+     * @memberof Client
+     * @example
+     * client.getPersistentMenu("12345");
+     * @param {string} psid
+     */
+    Client.prototype.getPersistentMenu = function (psid) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendRequest({ method: 'GET', path: "custom_user_settings?psid=".concat(psid) })];
+            });
+        });
+    };
+    /**
+     * Delete persistent menu
+     * @memberof Client
+     * @example
+     * client.deletePersistentMenu("12345");
+     * @param {string} psid
+     */
+    Client.prototype.deletePersistentMenu = function (psid) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.sendRequest({
+                        method: 'DELETE',
+                        path: "custom_user_settings?psid=".concat(psid, "&params=[\"persistent_menu\"]")
+                    })];
+            });
+        });
+    };
     return Client;
 }(events_1.EventEmitter));
 exports.Client = Client;

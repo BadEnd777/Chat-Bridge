@@ -1,6 +1,7 @@
 import Fastify, { FastifyRequest, FastifyReply, type FastifyInstance } from 'fastify';
 
 import { ClientOptions, HubQuery, WebhookBody, Entry, PageInformation } from '../interfaces';
+import { PersistentMenuItem } from '../elements/PersistentMenu';
 import { Constants } from './constants';
 import { EventEmitter } from 'events';
 import { HttpMethod } from '../types';
@@ -312,5 +313,55 @@ export class Client extends EventEmitter {
         };
 
         return this.sendRequest({ method: 'POST', path: 'messages', body });
+    }
+
+    /**
+     * Set persistent menu
+     * @memberof Client
+     * @example
+     * const { PersistentMenu, PersistentMenuItem, CallToAction } = require('chat-bridge');
+     *
+     * const persistentMenu = new PersistentMenu('12345', [
+     *     new PersistentMenuItem('default', false, [
+     *         new CallToAction('postback', 'Help', 'HELP_PAYLOAD', '', ''),
+     *         new CallToAction('postback', 'Start', 'START_PAYLOAD', '', '')
+     *     ])
+     * ]);
+     *
+     * client.setPersistentMenu(persistentMenu);
+     * @param {PersistentMenu} persistentMenu
+     */
+    public async setPersistentMenu(psid: string, persistentMenu: PersistentMenuItem[]) {
+        const body = {
+            psid,
+            persistent_menu: persistentMenu
+        };
+
+        return this.sendRequest({ method: 'POST', path: 'custom_user_settings', body });
+    }
+
+    /**
+     * Get persistent menu
+     * @memberof Client
+     * @example
+     * client.getPersistentMenu("12345");
+     * @param {string} psid
+     */
+    public async getPersistentMenu(psid: string) {
+        return this.sendRequest({ method: 'GET', path: `custom_user_settings?psid=${psid}` });
+    }
+
+    /**
+     * Delete persistent menu
+     * @memberof Client
+     * @example
+     * client.deletePersistentMenu("12345");
+     * @param {string} psid
+     */
+    public async deletePersistentMenu(psid: string) {
+        return this.sendRequest({
+            method: 'DELETE',
+            path: `custom_user_settings?psid=${psid}&params=["persistent_menu"]`
+        });
     }
 }

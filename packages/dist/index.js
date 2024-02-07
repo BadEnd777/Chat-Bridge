@@ -1,20 +1,39 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QuickReply = exports.QuickReplies = exports.ButtonTemplate = exports.UrlButton = exports.PostbackButton = exports.CallButton = exports.Constants = exports.Collections = exports.Client = void 0;
-var client_1 = require("./core/client");
-Object.defineProperty(exports, "Client", { enumerable: true, get: function () { return client_1.Client; } });
-var collections_1 = require("./core/collections");
-Object.defineProperty(exports, "Collections", { enumerable: true, get: function () { return collections_1.Collections; } });
-var constants_1 = require("./core/constants");
-Object.defineProperty(exports, "Constants", { enumerable: true, get: function () { return constants_1.Constants; } });
-var CallButton_1 = require("./button/CallButton");
-Object.defineProperty(exports, "CallButton", { enumerable: true, get: function () { return CallButton_1.CallButton; } });
-var PostbackButton_1 = require("./button/PostbackButton");
-Object.defineProperty(exports, "PostbackButton", { enumerable: true, get: function () { return PostbackButton_1.PostbackButton; } });
-var UrlButton_1 = require("./button/UrlButton");
-Object.defineProperty(exports, "UrlButton", { enumerable: true, get: function () { return UrlButton_1.UrlButton; } });
-var ButtonTemplate_1 = require("./templates/ButtonTemplate");
-Object.defineProperty(exports, "ButtonTemplate", { enumerable: true, get: function () { return ButtonTemplate_1.ButtonTemplate; } });
-var QuickReplies_1 = require("./templates/QuickReplies");
-Object.defineProperty(exports, "QuickReplies", { enumerable: true, get: function () { return QuickReplies_1.QuickReplies; } });
-Object.defineProperty(exports, "QuickReply", { enumerable: true, get: function () { return QuickReplies_1.QuickReply; } });
+// Core API
+__exportStar(require("./core/client"), exports);
+__exportStar(require("./core/collections"), exports);
+__exportStar(require("./core/constants"), exports);
+// Buttons
+__exportStar(require("./button/CallButton"), exports);
+__exportStar(require("./button/PostbackButton"), exports);
+__exportStar(require("./button/UrlButton"), exports);
+// Elements
+__exportStar(require("./elements/GenericElement"), exports);
+__exportStar(require("./elements/Greeting"), exports);
+__exportStar(require("./elements/MediaElement"), exports);
+__exportStar(require("./elements/PersistentMenu"), exports);
+__exportStar(require("./elements/ProductElement"), exports);
+__exportStar(require("./elements/ReceiptElement"), exports);
+// Templates
+__exportStar(require("./templates/ButtonTemplate"), exports);
+__exportStar(require("./templates/CouponTemplate"), exports);
+__exportStar(require("./templates/GenericTemplate"), exports);
+__exportStar(require("./templates/MediaTemplate"), exports);
+__exportStar(require("./templates/ProductTemplate"), exports);
+__exportStar(require("./templates/QuickReplies"), exports);
+__exportStar(require("./templates/ReceiptTemplate"), exports);
