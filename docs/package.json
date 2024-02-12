@@ -1,6 +1,6 @@
 {
     "name": "docs",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -8,8 +8,7 @@
         "start": "next start",
         "lint": "next lint",
         "format": "prettier --check .",
-        "format:fix": "prettier --write . --list-different",
-        "analyze": "next build && next bundle-analyzer"
+        "format:fix": "prettier --write . --list-different"
     },
     "dependencies": {
         "@next/bundle-analyzer": "^14.0.4",
