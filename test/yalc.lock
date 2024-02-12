@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "chat-bridge": {
+      "signature": "01faa90e797db4622f1a5ce9af701172",
+      "file": true
+    }
+  }
+}

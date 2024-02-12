@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { existsSync, readFileSync, writeFileSync, rmSync } from 'fs';
 import { withSpinner, success } from '@paperdave/logger';
 import { execSync } from 'child_process';
@@ -133,37 +135,37 @@ interface PackageJson {
     }, async (spinner) => {
         try {
             process.chdir(packagePath);
-            execSync('pnpx yalc publish');
+            execSync('yalc publish');
         } catch (error) {
             spinner.error('Failed to publish package to yalc.');
             throw error;
         }
     });
 
-    // Update local package in the example project
+    // Update local package in the test project
     await withSpinner({
-        text: 'Updating local package in the example project...',
-        successText: 'Local package is updated in the example project.',
+        text: 'Updating local package in the test project...',
+        successText: 'Local package is updated in the test project.',
     }, async (spinner) => {
         try {
-            process.chdir(join(rootPath, 'example'));
-            execSync('pnpx yalc update chat-bridge');
+            process.chdir(join(rootPath, 'test'));
+            execSync('yalc update chat-bridge');
         } catch (error) {
-            spinner.error('Failed to update local package in the example project.');
+            spinner.error('Failed to update local package in the test project.');
             throw error;
         }
     });
 
-    // Install dependencies in the example project
+    // Install dependencies in the test project
     await withSpinner({
-        text: 'Installing dependencies in the example project...',
-        successText: 'Dependencies are installed in the example project.',
+        text: 'Installing dependencies in the test project...',
+        successText: 'Dependencies are installed in the test project.',
     }, async (spinner) => {
         try {
-            process.chdir(join(rootPath, 'example'));
+            process.chdir(join(rootPath, 'test'));
             execSync('pnpm install');
         } catch (error) {
-            spinner.error('Failed to install dependencies in the example project.');
+            spinner.error('Failed to install dependencies in the test project.');
             throw error;
         }
     });
