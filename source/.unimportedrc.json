@@ -1,0 +1,10 @@
+{
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**"
+  ],
+  "ignoreUnimported": [],
+  "ignoreUnused": [],
+  "ignoreUnresolved": [],
+  "respectGitignore": true
+}

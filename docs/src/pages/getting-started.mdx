@@ -39,6 +39,10 @@ Create a new file named `index.js` and add the following code:
 ```js filename="index.js" copy
 // Import the Client class
 const { Client } = require('chat-bridge')
+const dotenv = require('dotenv')
+
+// Load environment variables from .env file
+dotenv.config()
 
 // Create a new Client instance
 const client = new Client({

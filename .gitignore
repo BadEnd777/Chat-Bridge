@@ -6,7 +6,12 @@ node_modules/
 # Ignore development files
 *.log
 
+# Ignore .env file
 .env
 
+# Next.js build output
 docs/.next
 docs/out
+
+# Ignore build output
+source/dist

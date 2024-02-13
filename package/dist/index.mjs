@@ -1,4 +1,4 @@
-"use strict";
+// src/core/client.ts
 function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -233,161 +233,7 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = function(target, all) {
-    for(var name in all)__defProp(target, name, {
-        get: all[name],
-        enumerable: true
-    });
-};
-var __copyProps = function(to, from, except, desc) {
-    if (from && typeof from === "object" || typeof from === "function") {
-        var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
-        try {
-            var _loop = function() {
-                var key = _step.value;
-                if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
-                    get: function() {
-                        return from[key];
-                    },
-                    enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
-                });
-            };
-            for(var _iterator = __getOwnPropNames(from)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally{
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return != null) {
-                    _iterator.return();
-                }
-            } finally{
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
-            }
-        }
-    }
-    return to;
-};
-var __toESM = function(mod, isNodeMode, target) {
-    return target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(// If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
-        value: mod,
-        enumerable: true
-    }) : target, mod);
-};
-var __toCommonJS = function(mod) {
-    return __copyProps(__defProp({}, "__esModule", {
-        value: true
-    }), mod);
-};
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-    Address: function() {
-        return Address;
-    },
-    Adjustment: function() {
-        return Adjustment;
-    },
-    ButtonTemplate: function() {
-        return ButtonTemplate;
-    },
-    CallButton: function() {
-        return CallButton;
-    },
-    CallToAction: function() {
-        return CallToAction;
-    },
-    Client: function() {
-        return Client;
-    },
-    Collections: function() {
-        return Collections;
-    },
-    Constants: function() {
-        return Constants;
-    },
-    CouponTemplate: function() {
-        return CouponTemplate;
-    },
-    FeedbackQuestion: function() {
-        return FeedbackQuestion;
-    },
-    FeedbackQuestionType: function() {
-        return FeedbackQuestionType;
-    },
-    FeedbackScreen: function() {
-        return FeedbackScreen;
-    },
-    FeedbackTemplate: function() {
-        return FeedbackTemplate;
-    },
-    FollowUp: function() {
-        return FollowUp;
-    },
-    GenericElement: function() {
-        return GenericElement;
-    },
-    GenericTemplate: function() {
-        return GenericTemplate;
-    },
-    Greeting: function() {
-        return Greeting;
-    },
-    MediaElement: function() {
-        return MediaElement;
-    },
-    MediaTemplate: function() {
-        return MediaTemplate;
-    },
-    PersistentMenu: function() {
-        return PersistentMenu;
-    },
-    PersistentMenuItem: function() {
-        return PersistentMenuItem;
-    },
-    PostbackButton: function() {
-        return PostbackButton;
-    },
-    ProductElement: function() {
-        return ProductElement;
-    },
-    ProductTemplate: function() {
-        return ProductTemplate;
-    },
-    QuickReplies: function() {
-        return QuickReplies;
-    },
-    QuickReply: function() {
-        return QuickReply;
-    },
-    ReceiptElement: function() {
-        return ReceiptElement;
-    },
-    ReceiptTemplate: function() {
-        return ReceiptTemplate;
-    },
-    Summary: function() {
-        return Summary;
-    },
-    UrlButton: function() {
-        return UrlButton;
-    }
-});
-module.exports = __toCommonJS(src_exports);
-// src/core/client.ts
-var import_fastify = __toESM(require("fastify"));
+import Fastify from "fastify";
 // src/core/constants.ts
 var BASE_URL = "https://graph.facebook.com/";
 var MESSAGE_URL = "".concat(BASE_URL, "v18.0/me/");
@@ -396,10 +242,11 @@ var Constants = {
     MESSAGE_URL: MESSAGE_URL
 };
 // src/core/client.ts
-var import_events = require("events");
-var import_undici = require("undici");
-var Client = /*#__PURE__*/ function(_import_events_EventEmitter) {
-    _inherits(Client, _import_events_EventEmitter);
+import { EventEmitter } from "events";
+import { request } from "undici";
+var Client = /*#__PURE__*/ function(EventEmitter) {
+    "use strict";
+    _inherits(Client, EventEmitter);
     var _super = _create_super(Client);
     function Client(options) {
         _class_call_check(this, Client);
@@ -409,7 +256,7 @@ var Client = /*#__PURE__*/ function(_import_events_EventEmitter) {
             name: "",
             id: ""
         };
-        _this.server = (0, import_fastify.default)();
+        _this.server = Fastify();
         _this.accessToken = options.accessToken;
         _this.verifyToken = options.verifyToken;
         _this.endpoint = options.endpoint || "/webhook";
@@ -597,7 +444,7 @@ var Client = /*#__PURE__*/ function(_import_events_EventEmitter) {
                                 };
                                 return [
                                     4,
-                                    (0, import_undici.request)(url, {
+                                    request(url, {
                                         method: method,
                                         body: bodyString,
                                         headers: headers
@@ -983,9 +830,10 @@ var Client = /*#__PURE__*/ function(_import_events_EventEmitter) {
         }
     ]);
     return Client;
-}(import_events.EventEmitter);
+}(EventEmitter);
 // src/core/collections.ts
 var Collections = /*#__PURE__*/ function() {
+    "use strict";
     function Collections() {
         _class_call_check(this, Collections);
         this.items = [];
@@ -1011,6 +859,7 @@ var Collections = /*#__PURE__*/ function() {
 }();
 // src/button/CallButton.ts
 var CallButton = /*#__PURE__*/ function() {
+    "use strict";
     function CallButton(title, payload) {
         _class_call_check(this, CallButton);
         this.title = title;
@@ -1032,6 +881,7 @@ var CallButton = /*#__PURE__*/ function() {
 }();
 // src/button/PostbackButton.ts
 var PostbackButton = /*#__PURE__*/ function() {
+    "use strict";
     function PostbackButton(title, payload) {
         _class_call_check(this, PostbackButton);
         this.title = title;
@@ -1053,6 +903,7 @@ var PostbackButton = /*#__PURE__*/ function() {
 }();
 // src/button/UrlButton.ts
 var UrlButton = /*#__PURE__*/ function() {
+    "use strict";
     function UrlButton(title, url) {
         _class_call_check(this, UrlButton);
         this.title = title;
@@ -1074,6 +925,7 @@ var UrlButton = /*#__PURE__*/ function() {
 }();
 // src/elements/GenericElement.ts
 var GenericElement = /*#__PURE__*/ function() {
+    "use strict";
     function GenericElement(title, subtitle, imageUrl) {
         _class_call_check(this, GenericElement);
         this.buttons = [];
@@ -1113,6 +965,7 @@ var GenericElement = /*#__PURE__*/ function() {
 }();
 // src/elements/Greeting.ts
 var Greeting = /*#__PURE__*/ function() {
+    "use strict";
     function Greeting(locale, text) {
         _class_call_check(this, Greeting);
         this.locale = locale;
@@ -1133,6 +986,7 @@ var Greeting = /*#__PURE__*/ function() {
 }();
 // src/elements/MediaElement.ts
 var MediaElement = /*#__PURE__*/ function() {
+    "use strict";
     function MediaElement(mediaType, media) {
         _class_call_check(this, MediaElement);
         this.buttons = [];
@@ -1167,6 +1021,7 @@ var MediaElement = /*#__PURE__*/ function() {
 }();
 // src/elements/PersistentMenu.ts
 var PersistentMenu = /*#__PURE__*/ function() {
+    "use strict";
     function PersistentMenu(psid, persistentMenu) {
         _class_call_check(this, PersistentMenu);
         this.psid = psid;
@@ -1186,6 +1041,7 @@ var PersistentMenu = /*#__PURE__*/ function() {
     return PersistentMenu;
 }();
 var PersistentMenuItem = /*#__PURE__*/ function() {
+    "use strict";
     function PersistentMenuItem(locale, composerInputDisabled, callToActions) {
         _class_call_check(this, PersistentMenuItem);
         this.locale = locale;
@@ -1207,6 +1063,7 @@ var PersistentMenuItem = /*#__PURE__*/ function() {
     return PersistentMenuItem;
 }();
 var CallToAction = /*#__PURE__*/ function() {
+    "use strict";
     function CallToAction(type, title, payload, url, webviewHeightRatio) {
         _class_call_check(this, CallToAction);
         this.type = type;
@@ -1233,6 +1090,7 @@ var CallToAction = /*#__PURE__*/ function() {
 }();
 // src/elements/ProductElement.ts
 var ProductElement = /*#__PURE__*/ function() {
+    "use strict";
     function ProductElement(id) {
         _class_call_check(this, ProductElement);
         this.id = id;
@@ -1251,6 +1109,7 @@ var ProductElement = /*#__PURE__*/ function() {
 }();
 // src/elements/ReceiptElement.ts
 var ReceiptElement = /*#__PURE__*/ function() {
+    "use strict";
     function ReceiptElement(title, subtitle, quantity, price, currency, imageUrl) {
         _class_call_check(this, ReceiptElement);
         this.title = title;
@@ -1279,6 +1138,7 @@ var ReceiptElement = /*#__PURE__*/ function() {
 }();
 // src/templates/ButtonTemplate.ts
 var ButtonTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function ButtonTemplate(text) {
         _class_call_check(this, ButtonTemplate);
         this.buttons = [];
@@ -1312,6 +1172,7 @@ var ButtonTemplate = /*#__PURE__*/ function() {
 }();
 // src/templates/CouponTemplate.ts
 var CouponTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function CouponTemplate(title, couponCode, couponUrl) {
         _class_call_check(this, CouponTemplate);
         this.title = title;
@@ -1407,6 +1268,7 @@ var FeedbackQuestionType = /* @__PURE__ */ function(FeedbackQuestionType2) {
     return FeedbackQuestionType2;
 }(FeedbackQuestionType || {});
 var FeedbackTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function FeedbackTemplate(title, subtitle, buttonTitle) {
         _class_call_check(this, FeedbackTemplate);
         this.feedbackScreens = [];
@@ -1462,6 +1324,7 @@ var FeedbackTemplate = /*#__PURE__*/ function() {
     return FeedbackTemplate;
 }();
 var FeedbackScreen = /*#__PURE__*/ function() {
+    "use strict";
     function FeedbackScreen() {
         _class_call_check(this, FeedbackScreen);
         this.questions = [];
@@ -1486,6 +1349,7 @@ var FeedbackScreen = /*#__PURE__*/ function() {
     return FeedbackScreen;
 }();
 var FeedbackQuestion = /*#__PURE__*/ function() {
+    "use strict";
     function FeedbackQuestion(id, type) {
         _class_call_check(this, FeedbackQuestion);
         this.id = id;
@@ -1537,6 +1401,7 @@ var FeedbackQuestion = /*#__PURE__*/ function() {
     return FeedbackQuestion;
 }();
 var FollowUp = /*#__PURE__*/ function() {
+    "use strict";
     function FollowUp(type) {
         _class_call_check(this, FollowUp);
         this.type = type;
@@ -1563,6 +1428,7 @@ var FollowUp = /*#__PURE__*/ function() {
 }();
 // src/templates/GenericTemplate.ts
 var GenericTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function GenericTemplate() {
         _class_call_check(this, GenericTemplate);
         this.elements = [];
@@ -1594,6 +1460,7 @@ var GenericTemplate = /*#__PURE__*/ function() {
 }();
 // src/templates/MediaTemplate.ts
 var MediaTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function MediaTemplate() {
         _class_call_check(this, MediaTemplate);
         this.elements = [];
@@ -1625,6 +1492,7 @@ var MediaTemplate = /*#__PURE__*/ function() {
 }();
 // src/templates/ProductTemplate.ts
 var ProductTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function ProductTemplate() {
         _class_call_check(this, ProductTemplate);
         this.elements = [];
@@ -1656,6 +1524,7 @@ var ProductTemplate = /*#__PURE__*/ function() {
 }();
 // src/templates/QuickReplies.ts
 var QuickReplies = /*#__PURE__*/ function() {
+    "use strict";
     function QuickReplies(title) {
         _class_call_check(this, QuickReplies);
         this.quickReplies = [];
@@ -1682,6 +1551,7 @@ var QuickReplies = /*#__PURE__*/ function() {
     return QuickReplies;
 }();
 var QuickReply = /*#__PURE__*/ function() {
+    "use strict";
     function QuickReply(title) {
         _class_call_check(this, QuickReply);
         this.title = title;
@@ -1717,6 +1587,7 @@ var QuickReply = /*#__PURE__*/ function() {
 }();
 // src/templates/ReceiptTemplate.ts
 var ReceiptTemplate = /*#__PURE__*/ function() {
+    "use strict";
     function ReceiptTemplate(recipientName, orderNumber, currency, paymentMethod, timestamp) {
         _class_call_check(this, ReceiptTemplate);
         this.elements = [];
@@ -1782,6 +1653,7 @@ var ReceiptTemplate = /*#__PURE__*/ function() {
     return ReceiptTemplate;
 }();
 var Address = /*#__PURE__*/ function() {
+    "use strict";
     function Address(street1, city, postalCode, state, country) {
         _class_call_check(this, Address);
         this.street1 = street1;
@@ -1815,6 +1687,7 @@ var Address = /*#__PURE__*/ function() {
     return Address;
 }();
 var Summary = /*#__PURE__*/ function() {
+    "use strict";
     function Summary(subtotal, shippingCost, totalTax, totalCost) {
         _class_call_check(this, Summary);
         this.subtotal = subtotal;
@@ -1838,6 +1711,7 @@ var Summary = /*#__PURE__*/ function() {
     return Summary;
 }();
 var Adjustment = /*#__PURE__*/ function() {
+    "use strict";
     function Adjustment(name, amount) {
         _class_call_check(this, Adjustment);
         this.name = name;
@@ -1856,36 +1730,4 @@ var Adjustment = /*#__PURE__*/ function() {
     ]);
     return Adjustment;
 }();
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-    Address: Address,
-    Adjustment: Adjustment,
-    ButtonTemplate: ButtonTemplate,
-    CallButton: CallButton,
-    CallToAction: CallToAction,
-    Client: Client,
-    Collections: Collections,
-    Constants: Constants,
-    CouponTemplate: CouponTemplate,
-    FeedbackQuestion: FeedbackQuestion,
-    FeedbackQuestionType: FeedbackQuestionType,
-    FeedbackScreen: FeedbackScreen,
-    FeedbackTemplate: FeedbackTemplate,
-    FollowUp: FollowUp,
-    GenericElement: GenericElement,
-    GenericTemplate: GenericTemplate,
-    Greeting: Greeting,
-    MediaElement: MediaElement,
-    MediaTemplate: MediaTemplate,
-    PersistentMenu: PersistentMenu,
-    PersistentMenuItem: PersistentMenuItem,
-    PostbackButton: PostbackButton,
-    ProductElement: ProductElement,
-    ProductTemplate: ProductTemplate,
-    QuickReplies: QuickReplies,
-    QuickReply: QuickReply,
-    ReceiptElement: ReceiptElement,
-    ReceiptTemplate: ReceiptTemplate,
-    Summary: Summary,
-    UrlButton: UrlButton
-});
+export { Address, Adjustment, ButtonTemplate, CallButton, CallToAction, Client, Collections, Constants, CouponTemplate, FeedbackQuestion, FeedbackQuestionType, FeedbackScreen, FeedbackTemplate, FollowUp, GenericElement, GenericTemplate, Greeting, MediaElement, MediaTemplate, PersistentMenu, PersistentMenuItem, PostbackButton, ProductElement, ProductTemplate, QuickReplies, QuickReply, ReceiptElement, ReceiptTemplate, Summary, UrlButton };

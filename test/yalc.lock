@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "chat-bridge": {
-      "signature": "ec567478df0c89f9cf368a100cc1ef77",
+      "signature": "4b0591de130060e331c206284a55d13d",
       "file": true
     }
   }
