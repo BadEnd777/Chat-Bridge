@@ -23,8 +23,8 @@ jobs:
       - name: 📝 Config publish registry
         working-directory: package
         run: echo "@BadEnd777:registry=https://npm.pkg.github.com" > .npmrc
-      - name: 🚀 Publish to NPM
+      - name: 🚀 Publish to Github Package
         working-directory: package
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GH_PACKAGE}}
