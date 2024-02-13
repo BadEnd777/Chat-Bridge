@@ -22,7 +22,10 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: 📝 Config publish registry
         working-directory: package
-        run: echo "@BadEnd777:registry=https://npm.pkg.github.com" > .npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GH_PACKAGE}}" > .npmrc
+      - name: 🔓 Authenticate
+        working-directory: package
+        run: npm login
       - name: 🚀 Publish to Github Package
         working-directory: package
         run: npm publish --access public
