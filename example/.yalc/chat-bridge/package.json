@@ -40,22 +40,8 @@
         "unimported": "unimported"
     },
     "dependencies": {
-        "fastify": "^4.26.1",
-        "undici": "^6.6.2"
+        "fastify": "^4.25.2",
+        "undici": "^6.2.1"
     },
-    "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
-        "@swc/core": "^1.4.1",
-        "@types/node": "^20.11.17",
-        "@typescript-eslint/eslint-plugin": "^7.0.1",
-        "@typescript-eslint/parser": "^7.0.1",
-        "eslint": "^8.56.0",
-        "prettier": "^3.2.5",
-        "prettier-plugin-pkg": "^0.18.1",
-        "tsup": "^8.0.2",
-        "typescript": "^5.3.3",
-        "unimported": "^1.31.1",
-        "validate-branch-name": "^1.3.0",
-        "yalc": "1.0.0-pre.53"
-    }
+    "yalcSig": "71a83348f940f25275663a2f01903c8f"
 }

@@ -1,0 +1,17 @@
+# Ignore the node_modules folder
+node_modules
+
+# Ignore files and directories in the .github folder
+.github
+
+# Ignore files and directories in the .husky folder
+.husky
+
+# Ignore the dist folder
+dist
+
+# Ignore the docs folder
+docs
+
+# Ignore the example folder
+example

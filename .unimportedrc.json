@@ -1,0 +1,9 @@
+{
+    "entry": ["src/**/*.ts"],
+    "extensions": [".ts"],
+    "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/docs/**", "**/test/**"],
+    "ignoreUnimported": [],
+    "ignoreUnused": [],
+    "ignoreUnresolved": [],
+    "respectGitignore": true
+}
