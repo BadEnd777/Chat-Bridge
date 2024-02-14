@@ -1,0 +1,35 @@
+import { Cards, Card } from 'nextra/components'
+// import { FaButton, FaCoupon, FaFeedback, FaGeneric, FaMedia, FaProduct, FaQuickReplies, FaReceipt } from 'react-icons/fa'
+import {
+    RiRadioButtonLine,
+    RiCoupon2Fill,
+    RiFeedbackFill,
+    RiDraftFill,
+    RiProductHuntFill,
+    RiReplyFill,
+} from 'react-icons/ri'
+import { MdPermMedia } from 'react-icons/md'
+import { FaReceipt } from 'react-icons/fa'
+
+# Templates API
+
+The Templates API is a set of classes that are used to create and send different types of templates to Facebook
+Messenger. These templates are used to create rich messages that can include images, buttons, and other interactive
+elements.
+
+<Cards>
+    <Card icon={<RiRadioButtonLine />} title="Button" href="/api-reference/templates/button" alt="Button" arrow />
+    <Card icon={<RiCoupon2Fill />} title="Coupon" href="/api-reference/templates/coupon" alt="Coupon" arrow />
+    <Card icon={<RiFeedbackFill />} title="Feedback" href="/api-reference/templates/feedback" alt="Feedback" arrow />
+    <Card icon={<RiDraftFill />} title="Generic" href="/api-reference/templates/generic" alt="Generic" arrow />
+    <Card icon={<MdPermMedia />} title="Media" href="/api-reference/templates/media" alt="Media" arrow />
+    <Card icon={<RiProductHuntFill />} title="Product" href="/api-reference/templates/product" alt="Product" arrow />
+    <Card
+        icon={<RiReplyFill />}
+        title="Quick Replies"
+        href="/api-reference/templates/quick-replies"
+        alt="Quick Replies"
+        arrow
+    />
+    <Card icon={<FaReceipt />} title="Receipt" href="/api-reference/templates/receipt" alt="Receipt" arrow />
+</Cards>
