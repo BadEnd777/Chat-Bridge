@@ -1,16 +1,22 @@
 const { Client, Collections } = require('chat-bridge');
+const { guardEnv } = require('guard-env');
 const events = require('./events');
-const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
+require('dotenv').config();
 
-dotenv.config();
+const env = guardEnv(process.env, {
+    ACCESS_TOKEN: String,
+    VERIFY_TOKEN: String,
+    PORT: Number
+});
 
 // https://chat-bridge.pages.dev/api-reference/core/client
 const client = new Client({
-    accessToken: process.env.ACCESS_TOKEN,
-    verifyToken: process.env.VERIFY_TOKEN,
-    endpoint: '/api/webhook'
+    accessToken: env.ACCESS_TOKEN,
+    verifyToken: env.VERIFY_TOKEN,
+    endpoint: '/api/webhook',
+    port: env.PORT
 });
 
 // https://chat-bridge.pages.dev/api-reference/core/client#register-a-plugin
@@ -35,6 +41,6 @@ for (const file of commandFiles) {
 client.commands = commands;
 
 // https://chat-bridge.pages.dev/api-reference/core/client#start-the-server
-client.start(() => {
-    console.log('Bot is running');
+client.start(async () => {
+    console.log(`Logged in as ${client.page.name} (${client.page.id}), listening on port ${env.PORT}`);
 });

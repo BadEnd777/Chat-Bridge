@@ -7,17 +7,8 @@ import { HttpMethod } from '../types';
 import { Constants } from './constants';
 
 /**
- * @type {Client}
- * @example
- * const { Client } = require('@badend/chatbridge');
- *
- * const client = new Client({
- *      accessToken: "YOUR_ACCESS_TOKEN", // required
- *      verifyToken: "YOUR_VERIFY_TOKEN", // required
- *      // webHookPath: "/webhook", // default
- *      // port: 8080, // default
- *      // host: "localhost", // default (only for development) or 0.0.0.0 (for production)
- * });
+ * Represents a client for interacting with a chat service.
+ * Extends EventEmitter for event handling.
  */
 export class Client extends EventEmitter {
     public server: FastifyInstance;
@@ -27,11 +18,18 @@ export class Client extends EventEmitter {
     public port: number;
     public host: string;
 
+    /**
+     * Information about the page associated with the client.
+     */
     public page: PageInformation = {
         name: '',
         id: ''
     };
 
+    /**
+     * Creates a new instance of the Client class.
+     * @param options - The options for configuring the client.
+     */
     constructor(options: ClientOptions) {
         super();
 
@@ -43,6 +41,12 @@ export class Client extends EventEmitter {
         this.host = options.host || 'localhost';
     }
 
+    /**
+     * Handles the verification request from the chat service.
+     * @param request - The Fastify request object.
+     * @param reply - The Fastify reply object.
+     * @returns The verification response.
+     */
     private handleVerifyRequest(request: FastifyRequest, reply: FastifyReply) {
         const query = request.query as HubQuery;
         const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': verifyToken } = query;
@@ -53,6 +57,12 @@ export class Client extends EventEmitter {
         return reply.code(200).send(challenge);
     }
 
+    /**
+     * Handles the webhook request from the chat service.
+     * @param request - The Fastify request object.
+     * @param reply - The Fastify reply object.
+     * @returns The webhook response.
+     */
     private handleWebhookRequest(request: FastifyRequest, reply: FastifyReply) {
         const { body } = request;
         const { object, entry } = body as WebhookBody;
@@ -84,11 +94,8 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Start the server
-     * @memberof Client
-     * @example
-     * client.start(async () => console.log(`Listening on ${client.page.name} (${client.page.id})`));
-     * @param {Function} [callback]
+     * Starts the client and listens for incoming requests.
+     * @param callback - An optional callback function to be called when the server starts.
      */
     public async start(callback?: () => void) {
         this.server.post(this.endpoint, this.handleWebhookRequest.bind(this));
@@ -116,18 +123,20 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Register a plugin
-     * @memberof Client
-     * @example
-     * client.register(require('fastify-cors'), {
-     *      origin: '*',
-     * });
-     * @param {Function} ...args
+     * Registers a plugin with the client's server.
+     * @param args - The arguments to pass to the Fastify register method.
+     * @returns A promise that resolves when the plugin is registered.
      */
     public async register(...args: Parameters<FastifyInstance['register']>) {
         return this.server.register(...args);
     }
 
+    /**
+     * Sends a request to the specified path with the given method and body.
+     * @param options - The options for the request.
+     * @returns The response body of the request.
+     * @throws Error if the request fails or the status code is not 200.
+     */
     private async sendRequest(options: { method: HttpMethod; path?: string; body?: object }) {
         const { accessToken } = this;
         const { method, path, body } = options;
@@ -151,21 +160,10 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Send an API message
-     * @memberof Client
-     * @example
-     * client.sendApiMessage("USER_ID", {
-     *      text: "Hello, World!",
-     *      quick_replies: [
-     *          {
-     *              content_type: "text",
-     *              title: "Hello",
-     *              payload: "HELLO",
-     *          }
-     *      ]
-     * });
-     * @param {string} recipientId
-     * @param {object} message
+     * Sends an API message to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param message - The message to send.
+     * @returns A promise that resolves with the API response.
      */
     public sendApiMessage(recipientId: string, message: object) {
         const body = {
@@ -179,34 +177,18 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Send a message
-     * @memberof Client
-     * @example
-     * client.send("USER_ID", {
-     *      text: "Hello, World!",
-     *      quick_replies: [
-     *          {
-     *              content_type: "text",
-     *              title: "Hello",
-     *              payload: "HELLO",
-     *          }
-     *      ]
-     * });
-     * @param {string} recipientId
-     * @param {object} message
+     * Sends a message to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param message - The message to send.
+     * @returns A promise that resolves with the API response.
      */
     public send(recipientId: string, message: object) {
         return this.sendApiMessage(recipientId, message);
     }
 
     /**
-     * Get page information
-     * @memberof Client
-     * @example
-     * const pageInformation = await client.getPageInfo();
-     * console.log(pageInformation);
-     * @returns
-     * { name: "Page Name", id: "PAGE_ID" }
+     * Retrieves information about the page associated with the client.
+     * @returns A promise that resolves with the page information.
      */
     public async getPageInfo(): Promise<Pick<PageInformation, 'name' | 'id'>> {
         const body = await this.sendRequest({ method: 'GET' });
@@ -218,26 +200,22 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Send a text message
-     * @memberof Client
-     * @example
-     * client.sendTextMessage("USER_ID", "Hello World!");
-     * @param {string} recipientId
-     * @param {string} text
+     * Sends a text message to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param text - The text message to send.
+     * @returns A promise that resolves with the API response.
      */
     public async sendTextMessage(recipientId: string, text: string) {
         return this.sendApiMessage(recipientId, { text });
     }
 
     /**
-     * Send an attachment
-     * @memberof Client
-     * @example
-     * client.sendAttachment("USER_ID", "image", "https://example.com/image.png");
-     * @param {string} recipientId
-     * @param {string} type - image, audio, video, file
-     * @param {string} url
-     * @param {boolean} [isReusable=false]
+     * Sends an attachment to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param type - The type of the attachment (image, audio, video, file).
+     * @param url - The URL of the attachment.
+     * @param isReusable - Indicates whether the attachment is reusable.
+     * @returns A promise that resolves with the API response.
      */
     public async sendAttachment(recipientId: string, type: string, url: string, isReusable: boolean = false) {
         return this.sendApiMessage(recipientId, {
@@ -252,64 +230,54 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Send an image
-     * @memberof Client
-     * @example
-     * client.sendImage("USER_ID", "https://example.com/image.png");
-     * @param {string} recipientId
-     * @param {string} url
-     * @param {boolean} [isReusable=false]
+     * Sends an image attachment to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param url - The URL of the image.
+     * @param isReusable - Indicates whether the image is reusable.
+     * @returns A promise that resolves with the API response.
      */
     public async sendImage(recipientId: string, url: string, isReusable: boolean = false) {
         return this.sendAttachment(recipientId, 'image', url, isReusable);
     }
 
     /**
-     * Send an audio
-     * @memberof Client
-     * @example
-     * client.sendAudio("USER_ID", "https://example.com/audio.mp3");
-     * @param {string} recipientId
-     * @param {string} url
-     * @param {boolean} [isReusable=false]
+     * Sends an audio attachment to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param url - The URL of the audio.
+     * @param isReusable - Indicates whether the audio is reusable.
+     * @returns A promise that resolves with the API response.
      */
     public async sendAudio(recipientId: string, url: string, isReusable: boolean = false) {
         return this.sendAttachment(recipientId, 'audio', url, isReusable);
     }
 
     /**
-     * Send a video
-     * @memberof Client
-     * @example
-     * client.sendVideo("USER_ID", "https://example.com/video.mp4");
-     * @param {string} recipientId
-     * @param {string} url
-     * @param {boolean} [isReusable=false]
+     * Sends a video attachment to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param url - The URL of the video.
+     * @param isReusable - Indicates whether the video is reusable.
+     * @returns A promise that resolves with the API response.
      */
     public async sendVideo(recipientId: string, url: string, isReusable: boolean = false) {
         return this.sendAttachment(recipientId, 'video', url, isReusable);
     }
 
     /**
-     * Send a file
-     * @memberof Client
-     * @example
-     * client.sendFile("USER_ID", "https://example.com/file.pdf");
-     * @param {string} recipientId
-     * @param {string} url
-     * @param {boolean} [isReusable=false]
+     * Sends a file attachment to a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param url - The URL of the file.
+     * @param isReusable - Indicates whether the file is reusable.
+     * @returns A promise that resolves with the API response.
      */
     public async sendFile(recipientId: string, url: string, isReusable: boolean = false) {
         return this.sendAttachment(recipientId, 'file', url, isReusable);
     }
 
     /**
-     * Set typing indicator
-     * @memberof Client
-     * @example
-     * client.setTyping("USER_ID", true);
-     * @param {string} recipientId
-     * @param {boolean} typing
+     * Sets the typing indicator for a recipient.
+     * @param recipientId - The ID of the recipient.
+     * @param typing - Indicates whether the typing indicator should be turned on or off.
+     * @returns A promise that resolves with the API response.
      */
     public async setTyping(recipientId: string, typing: boolean) {
         const body = {
@@ -323,20 +291,10 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Set persistent menu
-     * @memberof Client
-     * @example
-     * const { PersistentMenu, PersistentMenuItem, CallToAction } = require('chat-bridge');
-     *
-     * const persistentMenu = new PersistentMenu('12345', [
-     *     new PersistentMenuItem('default', false, [
-     *         new CallToAction('postback', 'Help', 'HELP_PAYLOAD', '', ''),
-     *         new CallToAction('postback', 'Start', 'START_PAYLOAD', '', '')
-     *     ])
-     * ]);
-     *
-     * client.setPersistentMenu(persistentMenu);
-     * @param {PersistentMenu} persistentMenu
+     * Sets the persistent menu for a user.
+     * @param psid - The ID of the user.
+     * @param persistentMenu - The persistent menu items.
+     * @returns A promise that resolves with the API response.
      */
     public async setPersistentMenu(psid: string, persistentMenu: PersistentMenuItem[]) {
         const body = {
@@ -348,22 +306,18 @@ export class Client extends EventEmitter {
     }
 
     /**
-     * Get persistent menu
-     * @memberof Client
-     * @example
-     * client.getPersistentMenu("12345");
-     * @param {string} psid
+     * Retrieves the persistent menu for a user.
+     * @param psid - The ID of the user.
+     * @returns A promise that resolves with the API response.
      */
     public async getPersistentMenu(psid: string) {
         return this.sendRequest({ method: 'GET', path: `custom_user_settings?psid=${psid}` });
     }
 
     /**
-     * Delete persistent menu
-     * @memberof Client
-     * @example
-     * client.deletePersistentMenu("12345");
-     * @param {string} psid
+     * Deletes the persistent menu for a user.
+     * @param psid - The ID of the user.
+     * @returns A promise that resolves with the API response.
      */
     public async deletePersistentMenu(psid: string) {
         return this.sendRequest({

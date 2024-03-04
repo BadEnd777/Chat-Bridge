@@ -5,3 +5,6 @@ node_modules/
 
 # Ignore build files
 dist/
+
+# Ignore .env files
+.env

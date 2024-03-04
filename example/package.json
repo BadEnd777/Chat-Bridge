@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Chat Bridge simplifies the integration of Facebook Messenger webhook handling into your Node.js applications.",
   "main": "src/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@fastify/static": "^7.0.0",
-    "chat-bridge": "file:.yalc/chat-bridge",
-    "dotenv": "^16.4.1"
+    "chat-bridge": "^2.0.0",
+    "dotenv": "^16.4.1",
+    "guard-env": "^0.0.2"
   }
 }
