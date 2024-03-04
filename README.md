@@ -1,5 +1,5 @@
 <div align="center" id="about">
-    <img src="https://raw.githubusercontent.com/BadEnd777/Chat-Bridge/main/.github/assets/logo.png" alt="Chat Bridge Logo" style="width: 200px; height: 200px; border-radius: 50%;">
+    <img src="https://raw.githubusercontent.com/BadEnd777/Chat-Bridge/main/.github/assets/logo.png" alt="Chat Bridge Logo" width="200" height="200" />
     <h1>Chat Bridge</h1>
     <a href="https://www.npmjs.com/package/chat-bridge">
         <img src="https://img.shields.io/npm/v/chat-bridge" alt="NPM Version">
